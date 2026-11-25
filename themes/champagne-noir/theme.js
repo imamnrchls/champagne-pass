@@ -37,6 +37,19 @@
     });
   }
 
+  function fmtLongDate(iso) {
+    if (!iso) return "";
+    const d = new Date(iso);
+    if (Number.isNaN(d.getTime())) return "";
+    return d.toLocaleDateString("id-ID", {
+      weekday: "long",
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+      timeZone: "Asia/Jakarta"
+    });
+  }
+
   window.LKThemes.register("champagne-noir", {
     name: "Champagne Noir",
 
@@ -65,7 +78,9 @@
       rsvp_title: "Konfirmasi Kehadiran",
       wishes_title: "Doa & Ucapan",
       gift_title: "Tanda Kasih",
-      closing: "Merupakan suatu kehormatan apabila Bapak/Ibu/Saudara/i berkenan hadir."
+      closing: "Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir dan memberikan doa restu.",
+      closing_title: "Terima Kasih",
+      closing_signoff: "Kami yang berbahagia,"
     },
 
     section_order: ["pembuka", "acara", "cerita_galeri", "rsvp", "amplop"],
@@ -78,7 +93,50 @@
         const coupleNames = `${data.mempelai.pria.nama_panggilan} & ${data.mempelai.wanita.nama_panggilan}`;
         const firstDate = Array.isArray(data.acara) && data.acara[0] ? fmtShortDate(data.acara[0].mulai) : "";
 
-        inner.append(el("p", "cn-cover-eyebrow", "The Wedding of"));
+        const firstEvent = Array.isArray(data.acara) && data.acara[0] ? data.acara[0] : null;
+        const longDate = firstEvent ? fmtLongDate(firstEvent.mulai) : "";
+
+        // Bingkai Art Deco sepanjang layar + cahaya ambient (dekoratif)
+        const decor = el("div", "cn-cover-decor");
+        decor.setAttribute("aria-hidden", "true");
+        decor.append(
+          el("span", "cn-cover-glow"),
+          el("span", "cn-cover-frame"),
+          el("span", "cn-cover-corner cn-cover-corner--tl"),
+          el("span", "cn-cover-corner cn-cover-corner--tr"),
+          el("span", "cn-cover-corner cn-cover-corner--bl"),
+          el("span", "cn-cover-corner cn-cover-corner--br")
+        );
+        const dust = el("span", "cn-cover-dust");
+        for (let i = 0; i < 14; i++) {
+          const mote = el("i");
+          mote.style.setProperty("--x", `${(i * 37 + 11) % 100}%`);
+          mote.style.setProperty("--d", `${9 + (i * 7) % 8}s`);
+          mote.style.setProperty("--delay", `${-((i * 13) % 11)}s`);
+          mote.style.setProperty("--s", `${1 + (i % 3)}px`);
+          dust.append(mote);
+        }
+        decor.append(dust);
+
+        // Kepala sampul: eyebrow, nama pasangan, tanggal
+        const head = el("header", "cn-cover-head");
+        const title = el("h1", "cn-cover-names");
+        title.append(
+          el("span", "cn-cover-name", data.mempelai.pria.nama_panggilan),
+          el("span", "cn-cover-amp", "&"),
+          el("span", "cn-cover-name", data.mempelai.wanita.nama_panggilan)
+        );
+        head.append(el("p", "cn-cover-eyebrow", "The Wedding of"), title);
+        if (longDate) {
+          const dateRow = el("p", "cn-cover-date");
+          dateRow.append(
+            el("span", "cn-cover-date-line"),
+            el("span", "cn-cover-date-text", longDate),
+            el("span", "cn-cover-date-line")
+          );
+          head.append(dateRow);
+        }
+        inner.append(head);
 
         // Amplop hitam + kartu dalam + flap + segel lilin
         const stage = el("div", "cn-envelope-stage");
@@ -119,11 +177,13 @@
         stage.append(env);
         inner.append(stage);
 
-        // Kepada Yth. + Nama Tamu (serif italic)
-        inner.append(
+        // Kepada Yth. + Nama Tamu (serif italic) dalam plakat tipis
+        const guest = el("div", "cn-guest");
+        guest.append(
           el("p", "cn-to-label", labels.to_prefix),
           el("p", "cn-guest-name", hooks.guestName)
         );
+        inner.append(guest);
 
         // Tombol buka (outline emas) + tombol Lewati
         const actions = el("div", "cn-cover-actions");
@@ -138,7 +198,7 @@
         actions.append(openBtn, skipBtn);
         inner.append(actions);
 
-        container.replaceChildren(inner);
+        container.replaceChildren(decor, inner);
       },
 
       // Sekuens pembuka amplop: segel 300ms -> flap 600ms -> kartu naik 550ms -> fade 450ms (Total ~1.8s <= 2s)
@@ -205,29 +265,42 @@
 
       portraitPlaceholder(initial, nickname) {
         const wrap = el("div", "cn-portrait-art");
+        // Sunburst Art Deco dari dasar lengkung + inisial serif besar
         wrap.append(
           svgEl(
-            "0 0 120 120",
-            '<rect x="14" y="14" width="92" height="92" fill="none" stroke="currentColor" stroke-width="0.8" opacity="0.35"/>' +
-            '<polygon points="60,22 98,60 60,98 22,60" fill="none" stroke="currentColor" stroke-width="0.9" opacity="0.5"/>' +
-            '<circle cx="60" cy="52" r="13" fill="none" stroke="currentColor" stroke-width="1.1"/>' +
-            '<path d="M38 86c3-13 12-20 22-20s19 7 22 20" fill="none" stroke="currentColor" stroke-width="1.1"/>',
-            84,
-            84
-          ),
+            "0 0 200 260",
+            '<g class="cn-sunburst" stroke="currentColor" stroke-width="0.6" fill="none"><line x1="100" y1="250" x2="-64.2" y2="206.0" /><line x1="100" y1="250" x2="-47.2" y2="165.0" /><line x1="100" y1="250" x2="-20.2" y2="129.8" /><line x1="100" y1="250" x2="15.0" y2="102.8" /><line x1="100" y1="250" x2="56.0" y2="85.8" /><line x1="100" y1="250" x2="100.0" y2="80.0" /><line x1="100" y1="250" x2="144.0" y2="85.8" /><line x1="100" y1="250" x2="185.0" y2="102.8" /><line x1="100" y1="250" x2="220.2" y2="129.8" /><line x1="100" y1="250" x2="247.2" y2="165.0" /><line x1="100" y1="250" x2="264.2" y2="206.0" /></g>' +
+            '<g stroke="currentColor" fill="none">' +
+            '<path d="M30 250 A70 70 0 0 1 170 250" stroke-width="0.8" opacity="0.5"/>' +
+            '<path d="M55 250 A45 45 0 0 1 145 250" stroke-width="0.8" opacity="0.35"/>' +
+            '</g>'
+          )
+        );
+        wrap.firstChild.classList.add("cn-portrait-bg");
+        wrap.firstChild.setAttribute("preserveAspectRatio", "xMidYMax slice");
+        wrap.append(
+          el("span", "cn-portrait-letter", initial),
           el("span", "cn-portrait-initial", nickname || initial)
         );
         return wrap;
       },
 
       closingEmblem(initials) {
+        const safe = String(initials).replace(/[<>&"']/g, "");
         return svgEl(
-          "0 0 100 68",
-          '<circle cx="40" cy="34" r="20" fill="none" stroke="currentColor" stroke-width="1" opacity="0.65"/>' +
-          '<circle cx="60" cy="34" r="20" fill="none" stroke="currentColor" stroke-width="1" opacity="0.65"/>' +
-          `<text x="50" y="39" text-anchor="middle" font-family="Cormorant Garamond, Georgia, serif" font-size="16" letter-spacing="2" fill="currentColor">${String(initials).replace(/[<>&"']/g, "")}</text>`,
-          100,
-          68
+          "0 0 160 104",
+          '<g stroke="currentColor" stroke-width="0.6" opacity="0.3"><line x1="111.9" y1="48.4" x2="134.5" y2="40.2"/><line x1="108.2" y1="41.0" x2="128.1" y2="27.6"/><line x1="102.8" y1="34.7" x2="118.8" y2="16.9"/><line x1="96.0" y1="30.0" x2="107.2" y2="8.8"/><line x1="88.2" y1="27.0" x2="94.0" y2="3.7"/><line x1="80.0" y1="26.0" x2="80.0" y2="2.0"/><line x1="71.8" y1="27.0" x2="66.0" y2="3.7"/><line x1="64.0" y1="30.0" x2="52.8" y2="8.8"/><line x1="57.2" y1="34.7" x2="41.2" y2="16.9"/><line x1="51.8" y1="41.0" x2="31.9" y2="27.6"/><line x1="48.1" y1="48.4" x2="25.5" y2="40.2"/></g>' +
+          '<path d="M14 60 H48 M112 60 H146" stroke="currentColor" stroke-width="0.8" opacity="0.6"/>' +
+          '<path d="M10 60 l4 -4 4 4 -4 4z M142 60 l4 -4 4 4 -4 4z" fill="currentColor" opacity="0.8"/>' +
+          '<mask id="cn-emblem-mask"><rect width="160" height="104" fill="#fff"/><rect x="62" y="49" width="36" height="22" rx="3" fill="#000"/></mask>' +
+          '<g mask="url(#cn-emblem-mask)">' +
+          '<circle cx="67" cy="60" r="24" fill="none" stroke="currentColor" stroke-width="1"/>' +
+          '<circle cx="93" cy="60" r="24" fill="none" stroke="currentColor" stroke-width="1"/>' +
+          '</g>' +
+          '<path d="M80 30 l4 4 -4 4 -4 -4z" fill="currentColor"/>' +
+          `<text x="80" y="66" text-anchor="middle" font-family="Cormorant Garamond, Georgia, serif" font-size="17" font-weight="500" letter-spacing="2" fill="currentColor">${safe}</text>`,
+          160,
+          104
         );
       }
     }

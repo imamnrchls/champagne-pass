@@ -89,6 +89,23 @@
     });
   }
 
+  // Tanggal terstruktur: tema bisa menata hari / tanggal / bulan-tahun terpisah
+  function buildEventDate(iso) {
+    const p = el("p", "lk-event-date");
+    if (!iso) return p;
+    const d = new Date(iso);
+    if (Number.isNaN(d.getTime())) return p;
+    const part = (opts) => d.toLocaleDateString("id-ID", Object.assign({ timeZone: "Asia/Jakarta" }, opts));
+    p.append(
+      el("span", "lk-event-date-wd", part({ weekday: "long" })),
+      el("span", "lk-event-date-sep", ", "),
+      el("span", "lk-event-date-day", part({ day: "numeric" })),
+      el("span", "lk-event-date-sep", " "),
+      el("span", "lk-event-date-my", part({ month: "long", year: "numeric" }))
+    );
+    return p;
+  }
+
   function fmtTimeRangeWIB(startIso, endIso) {
     if (!startIso) return "";
     const fmt = (iso) =>
@@ -460,6 +477,21 @@
     const showPhoto = data.tampilkan_foto_mempelai !== false;
     const coupleGrid = el("div", `lk-couple-grid${showPhoto ? "" : " lk-couple-grid--no-photo"}`);
 
+    // "Putra pertama dari Bpk. X & Ibu Y" -> baris relasi + baris nama orang tua
+    function buildParents(text) {
+      const p = el("p", "lk-person-parents");
+      const m = String(text || "").match(/^(.*?\bdari)\s+(.+)$/i);
+      if (!m) {
+        p.textContent = text || "";
+        return p;
+      }
+      p.append(
+        el("span", "lk-person-parents-rel", m[1]),
+        el("span", "lk-person-parents-names", m[2])
+      );
+      return p;
+    }
+
     function buildPerson(person, roleLabel, fallbackInitial) {
       const card = el("article", "lk-person lk-reveal");
 
@@ -490,7 +522,7 @@
       card.append(
         el("p", "lk-person-role", roleLabel),
         el("h3", "lk-person-name", person.nama_lengkap),
-        el("p", "lk-person-parents", person.ortu)
+        buildParents(person.ortu)
       );
 
       if (person.instagram) {
@@ -610,12 +642,18 @@
         card.append(
           iconWrap,
           el("h3", "lk-event-title", ev.label || "Acara"),
-          el("p", "lk-event-date", fmtDateID(ev.mulai)),
+          buildEventDate(ev.mulai),
           el("p", "lk-event-time", fmtTimeRangeWIB(ev.mulai, ev.selesai)),
           el("hr", "lk-event-rule")
         );
 
-        if (ev.venue) card.append(el("p", "lk-event-venue", ev.venue));
+        if (ev.venue) {
+          const venue = el("p", "lk-event-venue");
+          const venueIcon = ICONS.pin();
+          venueIcon.classList.add("lk-event-venue-icon");
+          venue.append(venueIcon, el("span", null, ev.venue));
+          card.append(venue);
+        }
         if (ev.alamat) card.append(el("p", "lk-event-address", ev.alamat));
 
         const actions = el("div", "lk-event-actions");
@@ -774,6 +812,11 @@
         img.decoding = "async";
 
         btn.append(img);
+        if (item.caption) {
+          const cap = el("span", "lk-gallery-cap", item.caption);
+          cap.setAttribute("aria-hidden", "true");
+          btn.append(cap);
+        }
         btn.addEventListener("click", () => openLightbox(gallery, idx, btn));
         grid.append(btn);
       });
@@ -1045,13 +1088,22 @@
       const hadirCount = items.filter((w) => w.att === "hadir").length;
       const raguCount = items.filter((w) => w.att === "ragu").length;
       const tidakCount = items.filter((w) => w.att === "tidak").length;
-      wishesSummary.textContent = `${hadirCount} Hadir · ${raguCount} Ragu · ${tidakCount} Tidak Hadir`;
+      // Ringkasan terstruktur (tampil sebagai teks "1 Hadir · 1 Ragu · 1 Tidak Hadir" bila tema tak menata)
+      wishesSummary.replaceChildren();
+      [[hadirCount, "Hadir", "hadir"], [raguCount, "Ragu", "ragu"], [tidakCount, "Tidak Hadir", "tidak"]].forEach(([num, text, key], i) => {
+        if (i) wishesSummary.append(el("span", "lk-wishes-stat-sep", " · "));
+        const stat = el("span", `lk-wishes-stat lk-wishes-stat--${key}`);
+        stat.append(el("span", "lk-wishes-stat-num", num), el("span", "lk-wishes-stat-sep", " "), el("span", "lk-wishes-stat-label", text));
+        wishesSummary.append(stat);
+      });
 
       wishesList.replaceChildren();
       items.slice(0, shownCount).forEach((w) => {
         const li = el("li", "lk-wish-card");
         const top = el("div", "lk-wish-top");
         const who = el("span", "lk-wish-name", w.name);
+        const avatar = el("span", "lk-wish-avatar", (w.name.trim()[0] || "?").toUpperCase());
+        avatar.setAttribute("aria-hidden", "true");
 
         const badges = el("div", "lk-wish-badges");
         const attBadge = el("span", `lk-wish-badge${w.att === "hadir" ? " lk-wish-badge--hadir" : ""}`, attLabelMap[w.att] || "Hadir");
@@ -1060,7 +1112,7 @@
           badges.append(el("span", "lk-wish-badge", `${w.guests} Tamu`));
         }
 
-        top.append(who, badges);
+        top.append(avatar, who, badges);
         li.append(top);
 
         if (w.msg) {
@@ -1265,7 +1317,10 @@
       closing.append(divWrap);
     }
 
+    // Judul & salam penutup opsional (didefinisikan oleh tema lewat labels)
+    if (labels.closing_title) closing.append(el("h2", "lk-closing-title", labels.closing_title));
     closing.append(el("p", "lk-closing-text", labels.closing));
+    if (labels.closing_signoff) closing.append(el("p", "lk-closing-signoff", labels.closing_signoff));
 
     const initials = data.inisial ||
       `${(data.mempelai.pria.nama_panggilan || "P")[0]}${(data.mempelai.wanita.nama_panggilan || "W")[0]}`.toUpperCase();

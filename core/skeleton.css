@@ -348,6 +348,16 @@ a {
   color: var(--text, #f3ede2);
 }
 
+.lk-person-parents-rel,
+.lk-person-parents-names {
+  display: block;
+}
+
+.lk-person-parents-rel {
+  margin-bottom: 2px;
+  color: var(--text-muted, #b8b0a2);
+}
+
 .lk-ig-link {
   display: inline-flex;
   align-items: center;
@@ -498,6 +508,10 @@ a {
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--text, #f3ede2);
+}
+
+.lk-event-venue-icon {
+  display: none;
 }
 
 .lk-event-time {
@@ -732,6 +746,11 @@ a {
   height: 100%;
   object-fit: cover;
   transition: filter 400ms ease, transform 500ms var(--ease, ease);
+}
+
+/* Keterangan foto: tersembunyi kecuali tema menampilkannya */
+.lk-gallery-cap {
+  display: none;
 }
 
 .lk-gallery-item:hover img,
@@ -1049,6 +1068,10 @@ a {
   font-weight: 500;
   color: var(--text, #f3ede2);
   overflow-wrap: anywhere;
+}
+
+.lk-wish-avatar {
+  display: none;
 }
 
 .lk-wish-badges {
