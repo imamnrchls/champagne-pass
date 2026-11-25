@@ -1088,13 +1088,22 @@
       const hadirCount = items.filter((w) => w.att === "hadir").length;
       const raguCount = items.filter((w) => w.att === "ragu").length;
       const tidakCount = items.filter((w) => w.att === "tidak").length;
-      wishesSummary.textContent = `${hadirCount} Hadir · ${raguCount} Ragu · ${tidakCount} Tidak Hadir`;
+      // Ringkasan terstruktur (tampil sebagai teks "1 Hadir · 1 Ragu · 1 Tidak Hadir" bila tema tak menata)
+      wishesSummary.replaceChildren();
+      [[hadirCount, "Hadir", "hadir"], [raguCount, "Ragu", "ragu"], [tidakCount, "Tidak Hadir", "tidak"]].forEach(([num, text, key], i) => {
+        if (i) wishesSummary.append(el("span", "lk-wishes-stat-sep", " · "));
+        const stat = el("span", `lk-wishes-stat lk-wishes-stat--${key}`);
+        stat.append(el("span", "lk-wishes-stat-num", num), el("span", "lk-wishes-stat-sep", " "), el("span", "lk-wishes-stat-label", text));
+        wishesSummary.append(stat);
+      });
 
       wishesList.replaceChildren();
       items.slice(0, shownCount).forEach((w) => {
         const li = el("li", "lk-wish-card");
         const top = el("div", "lk-wish-top");
         const who = el("span", "lk-wish-name", w.name);
+        const avatar = el("span", "lk-wish-avatar", (w.name.trim()[0] || "?").toUpperCase());
+        avatar.setAttribute("aria-hidden", "true");
 
         const badges = el("div", "lk-wish-badges");
         const attBadge = el("span", `lk-wish-badge${w.att === "hadir" ? " lk-wish-badge--hadir" : ""}`, attLabelMap[w.att] || "Hadir");
@@ -1103,7 +1112,7 @@
           badges.append(el("span", "lk-wish-badge", `${w.guests} Tamu`));
         }
 
-        top.append(who, badges);
+        top.append(avatar, who, badges);
         li.append(top);
 
         if (w.msg) {

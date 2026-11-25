@@ -1070,6 +1070,10 @@ a {
   overflow-wrap: anywhere;
 }
 
+.lk-wish-avatar {
+  display: none;
+}
+
 .lk-wish-badges {
   display: flex;
   align-items: center;

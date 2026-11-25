@@ -1289,6 +1289,306 @@
   color: var(--gold);
 }
 
+/* ---------- RSVP: kartu balasan berbingkai ---------- */
+[data-theme="champagne-noir"] .lk-rsvp-form {
+  position: relative;
+  max-width: 460px;
+  gap: 22px;
+  margin-top: 30px;
+  padding: 34px 24px 28px;
+  background:
+    radial-gradient(ellipse 90% 35% at 50% 0%, rgba(201, 169, 110, 0.09), transparent 70%),
+    var(--surface);
+  border: 1px solid rgba(201, 169, 110, 0.4);
+  border-radius: var(--radius);
+  box-shadow: 0 30px 60px -30px rgba(0, 0, 0, 0.9);
+}
+
+[data-theme="champagne-noir"] .lk-rsvp-form::before {
+  content: "";
+  position: absolute;
+  inset: 6px;
+  border: 1px solid rgba(201, 169, 110, 0.14);
+  pointer-events: none;
+}
+
+/* Sudut bertingkat emas, senada kartu acara */
+[data-theme="champagne-noir"] .lk-rsvp-form::after {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  pointer-events: none;
+  --c: var(--gold);
+  --l: 18px;
+  background:
+    linear-gradient(var(--c), var(--c)) top left / var(--l) 1px,
+    linear-gradient(var(--c), var(--c)) top left / 1px var(--l),
+    linear-gradient(var(--c), var(--c)) top right / var(--l) 1px,
+    linear-gradient(var(--c), var(--c)) top right / 1px var(--l),
+    linear-gradient(var(--c), var(--c)) bottom left / var(--l) 1px,
+    linear-gradient(var(--c), var(--c)) bottom left / 1px var(--l),
+    linear-gradient(var(--c), var(--c)) bottom right / var(--l) 1px,
+    linear-gradient(var(--c), var(--c)) bottom right / 1px var(--l);
+  background-repeat: no-repeat;
+}
+
+[data-theme="champagne-noir"] .lk-rsvp-form .lk-label {
+  font-size: 10px;
+  letter-spacing: 0.28em;
+  color: var(--gold);
+}
+
+[data-theme="champagne-noir"] .lk-input,
+[data-theme="champagne-noir"] .lk-textarea {
+  padding: 12px 14px;
+  border: 1px solid rgba(201, 169, 110, 0.28);
+  border-radius: var(--radius);
+  background: rgba(14, 14, 14, 0.6);
+  transition: border-color 220ms ease, box-shadow 220ms ease, background-color 220ms ease;
+}
+
+[data-theme="champagne-noir"] .lk-input:focus,
+[data-theme="champagne-noir"] .lk-textarea:focus {
+  border-color: var(--gold);
+  background: rgba(14, 14, 14, 0.85);
+  box-shadow: 0 0 0 3px rgba(201, 169, 110, 0.14);
+}
+
+[data-theme="champagne-noir"] .lk-input[aria-invalid="true"],
+[data-theme="champagne-noir"] .lk-textarea[aria-invalid="true"] {
+  border-color: var(--error);
+}
+
+[data-theme="champagne-noir"] .lk-textarea {
+  min-height: 108px;
+}
+
+[data-theme="champagne-noir"] .lk-field-meta {
+  min-height: 0;
+}
+
+[data-theme="champagne-noir"] .lk-field-meta:not(:has(> :not(:empty))) {
+  display: none;
+}
+
+/* Pilihan kehadiran: tiga kolom sama lebar */
+[data-theme="champagne-noir"] .lk-pill-group {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+
+[data-theme="champagne-noir"] .lk-pill-label {
+  min-height: 46px;
+  padding: 8px 6px;
+  border-color: rgba(201, 169, 110, 0.32);
+  border-radius: var(--radius);
+  background: rgba(14, 14, 14, 0.6);
+  font-size: 12px;
+  text-align: center;
+  line-height: 1.25;
+}
+
+[data-theme="champagne-noir"] .lk-pill-label:hover {
+  border-color: rgba(201, 169, 110, 0.7);
+}
+
+[data-theme="champagne-noir"] .lk-pill-option input:checked + .lk-pill-label {
+  background: linear-gradient(135deg, #d9bc85, var(--gold) 55%, #a8874f);
+  border-color: transparent;
+  color: #16120b;
+  box-shadow: 0 6px 18px -8px rgba(201, 169, 110, 0.6);
+}
+
+[data-theme="champagne-noir"] .lk-guest-counts .lk-pill-label {
+  font-variant-numeric: lining-nums;
+}
+
+[data-theme="champagne-noir"] .lk-rsvp-form > .lk-btn--solid {
+  min-height: 50px;
+  margin-top: 4px;
+  background: linear-gradient(135deg, #d9bc85, var(--gold) 55%, #a8874f);
+  border-color: transparent;
+  color: #16120b;
+  letter-spacing: 0.24em;
+}
+
+[data-theme="champagne-noir"] .lk-rsvp-form > .lk-btn--solid:hover {
+  opacity: 1;
+  filter: brightness(1.06);
+}
+
+/* ---------- Doa & Ucapan ---------- */
+[data-theme="champagne-noir"] .lk-wishes-wrap {
+  max-width: 460px;
+  margin-top: 64px;
+}
+
+[data-theme="champagne-noir"] .lk-wishes-head {
+  margin-bottom: 24px;
+}
+
+[data-theme="champagne-noir"] .lk-wishes-title {
+  font-size: 32px;
+  font-weight: 500;
+  margin-bottom: 18px;
+}
+
+/* Ringkasan: tiga ubin angka */
+[data-theme="champagne-noir"] .lk-wishes-summary {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+
+[data-theme="champagne-noir"] .lk-wishes-summary:empty {
+  display: none;
+}
+
+[data-theme="champagne-noir"] .lk-wishes-summary > .lk-wishes-stat-sep,
+[data-theme="champagne-noir"] .lk-wishes-stat .lk-wishes-stat-sep {
+  display: none;
+}
+
+[data-theme="champagne-noir"] .lk-wishes-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 12px 4px 10px;
+  border-top: 1px solid rgba(201, 169, 110, 0.3);
+  border-bottom: 1px solid rgba(201, 169, 110, 0.3);
+}
+
+[data-theme="champagne-noir"] .lk-wishes-stat-num {
+  font-family: var(--font-display);
+  font-size: 30px;
+  font-weight: 500;
+  line-height: 1;
+  font-variant-numeric: lining-nums;
+  color: var(--text);
+}
+
+[data-theme="champagne-noir"] .lk-wishes-stat--hadir .lk-wishes-stat-num {
+  color: var(--gold);
+}
+
+[data-theme="champagne-noir"] .lk-wishes-stat-label {
+  font-size: 9.5px;
+  letter-spacing: 0.24em;
+  padding-left: 0.24em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+/* Kartu ucapan: avatar inisial, tanda kutip, aksen emas kiri */
+[data-theme="champagne-noir"] .lk-wishes-list {
+  gap: 14px;
+}
+
+[data-theme="champagne-noir"] .lk-wish-card {
+  position: relative;
+  overflow: hidden;
+  padding: 18px 18px 16px 20px;
+  background:
+    linear-gradient(135deg, rgba(201, 169, 110, 0.06), transparent 50%),
+    var(--surface);
+  border-color: rgba(201, 169, 110, 0.22);
+}
+
+[data-theme="champagne-noir"] .lk-wish-card::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 14px;
+  bottom: 14px;
+  width: 2px;
+  background: linear-gradient(180deg, transparent, var(--gold), transparent);
+  opacity: 0.7;
+}
+
+[data-theme="champagne-noir"] .lk-wish-card::after {
+  content: "\201D";
+  position: absolute;
+  right: 14px;
+  bottom: -26px;
+  font-family: var(--font-display);
+  font-size: 110px;
+  line-height: 1;
+  color: var(--gold);
+  opacity: 0.08;
+  pointer-events: none;
+}
+
+[data-theme="champagne-noir"] .lk-wish-top {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-areas:
+    "av name"
+    "av badges";
+  align-items: center;
+  column-gap: 12px;
+  row-gap: 4px;
+  margin-bottom: 12px;
+}
+
+[data-theme="champagne-noir"] .lk-wish-avatar {
+  grid-area: av;
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 1px solid rgba(201, 169, 110, 0.55);
+  background: radial-gradient(circle at 35% 30%, rgba(201, 169, 110, 0.22), rgba(201, 169, 110, 0.04));
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--gold);
+}
+
+[data-theme="champagne-noir"] .lk-wish-name {
+  grid-area: name;
+  font-size: 20px;
+  line-height: 1.15;
+}
+
+[data-theme="champagne-noir"] .lk-wish-badges {
+  grid-area: badges;
+}
+
+[data-theme="champagne-noir"] .lk-wish-badge {
+  padding: 2px 8px;
+  font-size: 9.5px;
+  letter-spacing: 0.14em;
+  border-color: rgba(201, 169, 110, 0.25);
+}
+
+[data-theme="champagne-noir"] .lk-wish-badge--hadir {
+  background: rgba(201, 169, 110, 0.12);
+  border-color: rgba(201, 169, 110, 0.6);
+}
+
+[data-theme="champagne-noir"] .lk-wish-msg {
+  position: relative;
+  font-size: 13.5px;
+  line-height: 1.75;
+  color: rgba(243, 237, 226, 0.9);
+}
+
+[data-theme="champagne-noir"] .lk-wish-time {
+  font-size: 10.5px;
+  letter-spacing: 0.08em;
+}
+
+[data-theme="champagne-noir"] .lk-wishes-empty {
+  padding: 28px 18px;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 17px;
+  border-color: rgba(201, 169, 110, 0.3);
+}
+
 /* ---------- Amplop Digital: Kartu Hitam-Emas Minimalis ---------- */
 [data-theme="champagne-noir"] .lk-bank-card {
   background: linear-gradient(155deg, rgba(201, 169, 110, 0.07) 0%, var(--surface) 45%, var(--bg) 100%);
