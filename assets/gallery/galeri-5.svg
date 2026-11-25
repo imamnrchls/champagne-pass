@@ -1,25 +1,39 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 800" width="600" height="800">
   <defs>
     <linearGradient id="g5" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#14110D"/>
-      <stop offset="50%" stop-color="#2E2111"/>
-      <stop offset="100%" stop-color="#0E1F1B"/>
+      <stop offset="0%" stop-color="#1C1710"/>
+      <stop offset="50%" stop-color="#3B2A15"/>
+      <stop offset="100%" stop-color="#122722"/>
     </linearGradient>
-    <radialGradient id="s5" cx="50%" cy="34%" r="48%">
-      <stop offset="0%" stop-color="#F0CE84" stop-opacity="0.42"/>
+    <radialGradient id="s5" cx="50%" cy="38%" r="50%">
+      <stop offset="0%" stop-color="#F5D78E" stop-opacity="0.5"/>
+      <stop offset="55%" stop-color="#C9A96E" stop-opacity="0.14"/>
       <stop offset="100%" stop-color="#C9A96E" stop-opacity="0"/>
     </radialGradient>
   </defs>
   <rect width="600" height="800" fill="url(#g5)"/>
   <rect width="600" height="800" fill="url(#s5)"/>
-  <rect x="36" y="36" width="528" height="728" fill="none" stroke="#C9A96E" stroke-width="1.5" opacity="0.45"/>
-  <g stroke="#E6C782" fill="none" stroke-width="1.8" opacity="0.82">
-    <path d="M210 220 H282 L272 340 C268 370 224 370 220 340 Z"/>
-    <line x1="246" y1="362" x2="246" y2="510"/>
-    <line x1="210" y1="510" x2="282" y2="510"/>
-    <path d="M318 220 H390 L380 340 C376 370 332 370 328 340 Z"/>
-    <line x1="354" y1="362" x2="354" y2="510"/>
-    <line x1="318" y1="510" x2="390" y2="510"/>
+  <rect x="28" y="28" width="544" height="744" fill="none" stroke="#DFC082" stroke-width="1.6" opacity="0.62"/>
+  <rect x="44" y="44" width="512" height="712" fill="none" stroke="#C9A96E" stroke-width="0.9" opacity="0.34"/>
+  <path d="M28 84 V28 H84 M516 28 H572 V84 M28 716 V772 H84 M516 772 H572 V716" fill="none" stroke="#F0D497" stroke-width="2.2" opacity="0.85"/>
+  <g fill="#F5DE9F" opacity="0.78">
+    <path d="M300 154 L305 170 L321 175 L305 180 L300 196 L295 180 L279 175 L295 170 Z"/>
+    <circle cx="238" cy="208" r="4"/>
+    <circle cx="362" cy="204" r="4"/>
+    <circle cx="258" cy="226" r="2.5"/>
+    <circle cx="342" cy="222" r="2.5"/>
+    <circle cx="300" cy="228" r="3"/>
   </g>
-  <text x="300" y="640" text-anchor="middle" font-family="Georgia, serif" font-style="italic" font-size="24" letter-spacing="4" fill="#F3EDE2" opacity="0.85">V · MALAM</text>
+  <g stroke="#F0D497" fill="none" stroke-width="2.2" opacity="0.92">
+    <path d="M204 248 H284 L273 374 C268 406 220 406 215 374 Z" fill="#E8C988" fill-opacity="0.1"/>
+    <line x1="214" y1="296" x2="274" y2="296" stroke-width="1.2" opacity="0.65"/>
+    <line x1="244" y1="398" x2="244" y2="548"/>
+    <line x1="204" y1="548" x2="284" y2="548"/>
+    <path d="M316 248 H396 L385 374 C380 406 332 406 327 374 Z" fill="#E8C988" fill-opacity="0.1"/>
+    <line x1="326" y1="296" x2="386" y2="296" stroke-width="1.2" opacity="0.65"/>
+    <line x1="356" y1="398" x2="356" y2="548"/>
+    <line x1="316" y1="548" x2="396" y2="548"/>
+  </g>
+  <line x1="160" y1="600" x2="440" y2="600" stroke="#C9A96E" stroke-width="1" opacity="0.48"/>
+  <polygon points="300,592 308,600 300,608 292,600" fill="#E8C988" opacity="0.8"/>
 </svg>

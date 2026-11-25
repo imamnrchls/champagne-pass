@@ -1,26 +1,33 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 800" width="600" height="800">
   <defs>
     <linearGradient id="g4" x1="1" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#251C14"/>
-      <stop offset="55%" stop-color="#18130F"/>
-      <stop offset="100%" stop-color="#112722"/>
+      <stop offset="0%" stop-color="#302418"/>
+      <stop offset="52%" stop-color="#1E1812"/>
+      <stop offset="100%" stop-color="#15322C"/>
     </linearGradient>
-    <radialGradient id="s4" cx="50%" cy="42%" r="40%">
-      <stop offset="0%" stop-color="#F3EDE2" stop-opacity="0.25"/>
+    <radialGradient id="s4" cx="50%" cy="46%" r="46%">
+      <stop offset="0%" stop-color="#F6E9CE" stop-opacity="0.36"/>
+      <stop offset="60%" stop-color="#C9A96E" stop-opacity="0.1"/>
       <stop offset="100%" stop-color="#C9A96E" stop-opacity="0"/>
     </radialGradient>
   </defs>
   <rect width="600" height="800" fill="url(#g4)"/>
   <rect width="600" height="800" fill="url(#s4)"/>
-  <rect x="36" y="36" width="528" height="728" fill="none" stroke="#C9A96E" stroke-width="1.5" opacity="0.45"/>
-  <g stroke="#E2C17C" fill="none" stroke-width="1.5" opacity="0.78">
-    <path d="M300 545 C298 420 302 310 300 185"/>
-    <path d="M300 440 C245 405 215 385 185 335"/>
-    <path d="M300 375 C355 340 385 320 415 270"/>
-    <path d="M300 315 C250 285 225 255 210 220"/>
-    <ellipse cx="182" cy="328" rx="28" ry="11" transform="rotate(-35 182 328)" fill="#C9A96E" fill-opacity="0.28"/>
-    <ellipse cx="418" cy="264" rx="28" ry="11" transform="rotate(35 418 264)" fill="#C9A96E" fill-opacity="0.28"/>
-    <circle cx="300" cy="176" r="16" fill="#F3EDE2" fill-opacity="0.45"/>
+  <rect x="28" y="28" width="544" height="744" fill="none" stroke="#DFC082" stroke-width="1.6" opacity="0.62"/>
+  <rect x="44" y="44" width="512" height="712" fill="none" stroke="#C9A96E" stroke-width="0.9" opacity="0.34"/>
+  <path d="M28 84 V28 H84 M516 28 H572 V84 M28 716 V772 H84 M516 772 H572 V716" fill="none" stroke="#F0D497" stroke-width="2.2" opacity="0.85"/>
+  <path d="M148 596 V340 A152 152 0 0 1 452 340 V596" fill="none" stroke="#C9A96E" stroke-width="1" opacity="0.4"/>
+  <g stroke="#ECCD8A" fill="none" stroke-width="1.8" opacity="0.9">
+    <path d="M300 584 C298 456 302 340 300 206"/>
+    <path d="M300 486 C244 450 212 424 180 370"/>
+    <path d="M300 422 C356 386 388 360 420 306"/>
+    <path d="M300 356 C250 324 224 294 206 256"/>
+    <path d="M300 314 C346 288 370 262 388 228"/>
+    <ellipse cx="176" cy="362" rx="34" ry="13" transform="rotate(-35 176 362)" fill="#E5C584" fill-opacity="0.36"/>
+    <ellipse cx="424" cy="298" rx="34" ry="13" transform="rotate(35 424 298)" fill="#E5C584" fill-opacity="0.36"/>
+    <ellipse cx="200" cy="248" rx="28" ry="11" transform="rotate(-42 200 248)" fill="#F3EDE2" fill-opacity="0.28"/>
+    <ellipse cx="394" cy="222" rx="28" ry="11" transform="rotate(42 394 222)" fill="#F3EDE2" fill-opacity="0.28"/>
+    <circle cx="300" cy="196" r="20" fill="#F3EDE2" fill-opacity="0.58"/>
+    <circle cx="300" cy="196" r="32" stroke-dasharray="3 5" stroke-width="1" opacity="0.55"/>
   </g>
-  <text x="300" y="640" text-anchor="middle" font-family="Georgia, serif" font-style="italic" font-size="24" letter-spacing="4" fill="#F3EDE2" opacity="0.85">IV · KASIH</text>
 </svg>

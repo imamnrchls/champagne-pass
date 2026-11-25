@@ -1432,6 +1432,11 @@
     footer.append(lkLink);
     main.append(footer);
 
+    // Opsional: tema dapat menyisipkan ornamen dekoratif (aria-hidden) tanpa mengubah struktur data
+    if (typeof theme.decorate === "function") {
+      theme.decorate(main, data);
+    }
+
     // Render Cover & Gate Opener (Section 1 & 2)
     const coverHost = $("#lk-cover");
     let hasOpened = false;

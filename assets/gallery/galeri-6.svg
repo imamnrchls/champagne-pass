@@ -1,15 +1,23 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 800" width="600" height="800">
   <defs>
     <linearGradient id="g6" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#0F2A24"/>
-      <stop offset="55%" stop-color="#151515"/>
-      <stop offset="100%" stop-color="#221A10"/>
+      <stop offset="0%" stop-color="#14362E"/>
+      <stop offset="52%" stop-color="#1C1B18"/>
+      <stop offset="100%" stop-color="#2D2214"/>
     </linearGradient>
+    <radialGradient id="s6" cx="50%" cy="48%" r="44%">
+      <stop offset="0%" stop-color="#F0D497" stop-opacity="0.34"/>
+      <stop offset="100%" stop-color="#C9A96E" stop-opacity="0"/>
+    </radialGradient>
   </defs>
   <rect width="600" height="800" fill="url(#g6)"/>
-  <rect x="36" y="36" width="528" height="728" fill="none" stroke="#C9A96E" stroke-width="1.5" opacity="0.5"/>
-  <rect x="130" y="210" width="340" height="340" fill="none" stroke="#C9A96E" stroke-width="1.5" opacity="0.7"/>
-  <rect x="148" y="228" width="304" height="304" fill="none" stroke="#C9A96E" stroke-width="0.9" opacity="0.35"/>
-  <text x="300" y="408" text-anchor="middle" font-family="Georgia, serif" font-size="112" letter-spacing="12" fill="#E3C481">RA</text>
-  <text x="300" y="640" text-anchor="middle" font-family="Georgia, serif" font-style="italic" font-size="24" letter-spacing="4" fill="#F3EDE2" opacity="0.85">VI · SELAMANYA</text>
+  <rect width="600" height="800" fill="url(#s6)"/>
+  <rect x="28" y="28" width="544" height="744" fill="none" stroke="#DFC082" stroke-width="1.6" opacity="0.62"/>
+  <rect x="44" y="44" width="512" height="712" fill="none" stroke="#C9A96E" stroke-width="0.9" opacity="0.34"/>
+  <path d="M28 84 V28 H84 M516 28 H572 V84 M28 716 V772 H84 M516 772 H572 V716" fill="none" stroke="#F0D497" stroke-width="2.2" opacity="0.85"/>
+  <polygon points="200,214 400,214 476,290 476,490 400,566 200,566 124,490 124,290" fill="#12110E" fill-opacity="0.45" stroke="#ECCD8A" stroke-width="1.8" opacity="0.86"/>
+  <polygon points="214,232 386,232 458,304 458,476 386,548 214,548 142,476 142,304" fill="none" stroke="#C9A96E" stroke-width="1" opacity="0.48"/>
+  <polygon points="300,198 314,214 300,230 286,214" fill="#F0D497"/>
+  <polygon points="300,550 314,566 300,582 286,566" fill="#F0D497"/>
+  <text x="300" y="426" text-anchor="middle" font-family="Georgia, serif" font-size="116" letter-spacing="14" fill="#F0D497">RA</text>
 </svg>
