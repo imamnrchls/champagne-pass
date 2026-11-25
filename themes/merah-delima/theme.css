@@ -1,0 +1,67 @@
+/* ==========================================================================
+   LAYER 3 — TEMA ALTERNATIF: MERAH DELIMA (Skin referensi untuk uji ganti tema)
+   Membuktikan prinsip §1 & §8: ganti `tema` di data -> tampilan berubah total,
+   konten & urutan identik, tanpa menyentuh logika skeleton.
+   ========================================================================== */
+
+[data-theme="merah-delima"] {
+  --bg:           #4A0F1C;
+  --bg-outer:     #250710;
+  --surface:      #360A15;
+  --gold:         #E9D9C6;
+  --accent:       #E9D9C6;
+  --text:         #F5EFE8;
+  --text-muted:   #D8C6B8;
+  --line:         rgba(233, 217, 198, 0.32);
+  --error:        #FFB4BD;
+  --font-display: "Cormorant Garamond", Georgia, serif;
+  --font-body:    "Montserrat", system-ui, sans-serif;
+  --radius:       16px;
+  --dur-slow:     800ms;
+  --ease:         cubic-bezier(0.22, 0.61, 0.36, 1);
+  color-scheme:   dark;
+}
+
+[data-theme="merah-delima"] .lk-btn {
+  border-radius: 999px;
+}
+
+[data-theme="merah-delima"] .lk-cover {
+  background: linear-gradient(180deg, #4A0F1C 0%, #250710 100%);
+  transition: transform 700ms var(--ease), opacity 700ms var(--ease);
+}
+
+[data-theme="merah-delima"] .lk-cover.md-sliding {
+  transform: translateY(-100%);
+  opacity: 0;
+}
+
+.md-cover-inner {
+  max-width: 340px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.md-mono-cover {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 54px;
+  font-weight: 400;
+  letter-spacing: 0.14em;
+  color: var(--accent);
+}
+
+.md-guest {
+  margin: 0 0 12px;
+  font-family: var(--font-display);
+  font-size: 26px;
+  color: #fff;
+}
+
+[data-theme="merah-delima"] .lk-person-photo,
+[data-theme="merah-delima"] .lk-person-placeholder {
+  border-radius: 110px 110px 14px 14px;
+  border: 1px solid var(--line);
+}

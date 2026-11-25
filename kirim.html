@@ -1,0 +1,379 @@
+<!doctype html>
+<html lang="id" data-theme="champagne-noir">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Kirim Undangan · Lembar Kabar</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&family=Montserrat:wght@300;400;500&display=swap">
+  <style>
+    :root {
+      --bg: #0E0E0E;
+      --surface: #171717;
+      --gold: #C9A96E;
+      --text: #F3EDE2;
+      --muted: #B8B0A2;
+      --line: rgba(201, 169, 110, 0.32);
+      --wa: #1E7E4D;
+      --radius: 2px;
+      color-scheme: dark;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font: 300 14px/1.65 "Montserrat", system-ui, sans-serif;
+    }
+    header {
+      border-bottom: 1px solid var(--line);
+      padding: 28px 20px 24px;
+      background: var(--surface);
+    }
+    header .in, main { max-width: 760px; margin: 0 auto; }
+    header small {
+      display: block;
+      font-size: 11px;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+    h1 {
+      margin: 6px 0 4px;
+      font: 400 32px/1.2 "Cormorant Garamond", Georgia, serif;
+      color: var(--text);
+    }
+    header p { margin: 0; font-size: 13px; color: var(--muted); }
+    main { padding: 24px 20px 64px; display: grid; gap: 20px; }
+    .panel {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 20px;
+      display: grid;
+      gap: 12px;
+    }
+    h2 {
+      margin: 0;
+      font: 400 22px/1.2 "Cormorant Garamond", Georgia, serif;
+      color: var(--gold);
+    }
+    .hint { margin: 0; font-size: 12.5px; color: var(--muted); }
+    .hint code {
+      background: rgba(201, 169, 110, 0.12);
+      color: var(--gold);
+      padding: 1px 6px;
+      border-radius: 2px;
+      font-size: 12px;
+    }
+    textarea {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--bg);
+      color: var(--text);
+      font: 300 14px/1.55 "Montserrat", system-ui, sans-serif;
+    }
+    textarea:focus { outline: none; border-color: var(--gold); }
+    #guests { min-height: 140px; }
+    #tpl { min-height: 240px; }
+    .row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+    button, .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      min-height: 38px;
+      padding: 8px 16px;
+      border: 1px solid var(--gold);
+      border-radius: var(--radius);
+      background: transparent;
+      color: var(--gold);
+      font: 400 11.5px "Montserrat", system-ui, sans-serif;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    button:hover, .btn:hover { background: var(--gold); color: var(--bg); }
+    .btn.wa { background: var(--wa); border-color: var(--wa); color: #fff; }
+    .btn.wa:hover { opacity: 0.9; background: var(--wa); color: #fff; }
+    .count { margin-left: auto; font-size: 12px; color: var(--muted); }
+    ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+    li {
+      background: var(--bg);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 14px;
+      display: grid;
+      gap: 8px;
+    }
+    li.sent { opacity: 0.58; }
+    li .top { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px; }
+    li strong { font: 500 18px/1.2 "Cormorant Garamond", Georgia, serif; color: var(--text); }
+    li .phone { font-size: 12px; color: var(--muted); }
+    li .tick { margin-left: auto; font-size: 11px; color: var(--gold); letter-spacing: 0.1em; text-transform: uppercase; }
+    li .link { font-size: 12px; color: var(--gold); overflow-wrap: anywhere; user-select: all; }
+    .empty {
+      text-align: center;
+      color: var(--muted);
+      padding: 20px;
+      border: 1px dashed var(--line);
+    }
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 24px;
+      transform: translate(-50%, 14px);
+      opacity: 0;
+      padding: 10px 18px;
+      background: var(--surface);
+      border: 1px solid var(--gold);
+      color: var(--text);
+      font-size: 12.5px;
+      pointer-events: none;
+      transition: transform 240ms ease, opacity 240ms ease;
+    }
+    .toast.show { opacity: 1; transform: translate(-50%, 0); }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="in">
+      <small id="metaLine">Lembar Kabar · Champagne Noir</small>
+      <h1>Kirim Undangan</h1>
+      <p>Buat tautan personal <code>?to=Nama+Tamu</code> secara massal dan kirim lewat WhatsApp.</p>
+    </div>
+  </header>
+
+  <main>
+    <section class="panel">
+      <h2>1. Daftar Tamu</h2>
+      <p class="hint">Satu tamu per baris. Nomor WhatsApp opsional setelah koma:<br>
+        <code>Bapak Ahmad &amp; Keluarga, 0812 3456 7890</code><br>
+        <code>Rina Kartika</code>
+      </p>
+      <textarea id="guests" placeholder="Bapak Ahmad &amp; Keluarga, 081234567890&#10;Rina Kartika"></textarea>
+    </section>
+
+    <section class="panel">
+      <h2>2. Template Pesan WhatsApp</h2>
+      <p class="hint">Gunakan <code>{nama}</code> untuk nama tamu dan <code>{link}</code> untuk tautan undangan.</p>
+      <textarea id="tpl"></textarea>
+      <div class="row">
+        <button type="button" id="resetTpl">Kembalikan pesan bawaan</button>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="row">
+        <h2>3. Tautan Per Tamu</h2>
+        <span class="count" id="count"></span>
+      </div>
+      <div class="row">
+        <button type="button" id="copyAll">Salin semua link</button>
+        <button type="button" id="clearSent">Reset tanda terkirim</button>
+      </div>
+      <ul id="list"></ul>
+    </section>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="data/invitation.js"></script>
+  <script>
+    (function () {
+      const data = window.INVITATION_DATA || {
+        slug: "undangan",
+        mempelai: { pria: { nama_panggilan: "Mempelai Pria" }, wanita: { nama_panggilan: "Mempelai Wanita" } },
+        acara: []
+      };
+
+      const couple = `${data.mempelai.pria.nama_panggilan} & ${data.mempelai.wanita.nama_panggilan}`;
+      const firstEv = Array.isArray(data.acara) && data.acara[0] ? data.acara[0] : null;
+      const dateStr = firstEv && firstEv.mulai
+        ? new Date(firstEv.mulai).toLocaleDateString("id-ID", { weekday: "long", day: "numeric", month: "long", year: "numeric", timeZone: "Asia/Jakarta" })
+        : "";
+      const venueStr = firstEv && firstEv.venue ? firstEv.venue : "";
+
+      document.title = `Kirim Undangan · ${couple}`;
+      document.getElementById("metaLine").textContent = [couple, dateStr].filter(Boolean).join(" · ");
+
+      const BASE = location.origin + location.pathname.replace(/kirim(\.html)?$/, "");
+      const DEFAULT_TPL = `Assalamu'alaikum Warahmatullahi Wabarakatuh
+
+Kepada Yth.
+Bapak/Ibu/Saudara/i {nama}
+
+Dengan memohon rahmat dan ridho Allah SWT, perkenankan kami mengundang Bapak/Ibu/Saudara/i untuk menghadiri acara pernikahan kami:
+
+*${couple}*
+${dateStr ? "🗓️ " + dateStr + "\n" : ""}${venueStr ? "📍 " + venueStr + "\n" : ""}
+Informasi lengkap acara dapat diakses melalui tautan berikut:
+
+{link}
+
+Merupakan suatu kehormatan apabila Bapak/Ibu/Saudara/i berkenan hadir dan memberikan doa restu.
+
+Wassalamu'alaikum Warahmatullahi Wabarakatuh
+
+Kami yang berbahagia,
+*${couple}*`;
+
+      const $ = (s) => document.querySelector(s);
+      const prefix = `lk-kirim-${data.slug || "default"}-`;
+      const store = {
+        get(k, fallback) { try { const v = localStorage.getItem(prefix + k); return v == null ? fallback : JSON.parse(v); } catch { return fallback; } },
+        set(k, v) { try { localStorage.setItem(prefix + k, JSON.stringify(v)); } catch {} }
+      };
+
+      const guestsEl = $("#guests");
+      const tplEl = $("#tpl");
+      guestsEl.value = store.get("guests", "");
+      tplEl.value = store.get("tpl", DEFAULT_TPL);
+      let sent = store.get("sent", {});
+
+      let toastTimer = null;
+      function toast(msg) {
+        const t = $("#toast");
+        t.textContent = msg;
+        t.classList.add("show");
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => t.classList.remove("show"), 1800);
+      }
+
+      async function copyText(text) {
+        try { await navigator.clipboard.writeText(text); }
+        catch {
+          const ta = document.createElement("textarea");
+          ta.value = text;
+          document.body.append(ta);
+          ta.select();
+          document.execCommand("copy");
+          ta.remove();
+        }
+        toast("Disalin ke clipboard");
+      }
+
+      function formatWaNumber(raw) {
+        let d = String(raw || "").replace(/\D/g, "");
+        if (!d) return "";
+        if (d.startsWith("0")) d = "62" + d.slice(1);
+        else if (d.startsWith("8")) d = "62" + d;
+        return d;
+      }
+
+      function parseGuests() {
+        return guestsEl.value
+          .split("\n")
+          .map((l) => l.trim())
+          .filter(Boolean)
+          .map((line) => {
+            const m = line.match(/^(.*?)[,;\t]\s*(\+?[\d\s\-().]{8,})$/);
+            return m ? { name: m[1].trim(), phone: m[2].trim() } : { name: line, phone: "" };
+          })
+          .filter((g) => g.name);
+      }
+
+      const linkFor = (name) => `${BASE}?to=${encodeURIComponent(name).replace(/%20/g, "+")}`;
+      const messageFor = (g) => tplEl.value.replaceAll("{nama}", g.name).replaceAll("{link}", linkFor(g.name));
+
+      function render() {
+        const list = parseGuests();
+        const ul = $("#list");
+        ul.replaceChildren();
+        $("#count").textContent = list.length ? `${list.length} tamu · ${list.filter((g) => sent[g.name]).length} terkirim` : "";
+
+        if (!list.length) {
+          const li = document.createElement("li");
+          li.className = "empty";
+          li.textContent = "Belum ada tamu. Tulis daftar tamu pada langkah 1.";
+          ul.append(li);
+          return;
+        }
+
+        list.forEach((g) => {
+          const li = document.createElement("li");
+          if (sent[g.name]) li.classList.add("sent");
+
+          const top = document.createElement("div");
+          top.className = "top";
+          const strong = document.createElement("strong");
+          strong.textContent = g.name;
+          top.append(strong);
+
+          if (g.phone) {
+            const ph = document.createElement("span");
+            ph.className = "phone";
+            ph.textContent = g.phone;
+            top.append(ph);
+          }
+          if (sent[g.name]) {
+            const tick = document.createElement("span");
+            tick.className = "tick";
+            tick.textContent = "✓ Terkirim";
+            top.append(tick);
+          }
+
+          const linkDiv = document.createElement("div");
+          linkDiv.className = "link";
+          linkDiv.textContent = linkFor(g.name);
+
+          const actions = document.createElement("div");
+          actions.className = "row";
+
+          const num = formatWaNumber(g.phone);
+          const wa = document.createElement("a");
+          wa.className = "btn wa";
+          wa.target = "_blank";
+          wa.rel = "noopener noreferrer";
+          wa.textContent = "Kirim WA";
+          wa.href = `${num ? "https://wa.me/" + num : "https://wa.me/"}?text=${encodeURIComponent(messageFor(g))}`;
+          wa.addEventListener("click", () => {
+            sent[g.name] = Date.now();
+            store.set("sent", sent);
+            setTimeout(render, 250);
+          });
+
+          const copyMsgBtn = document.createElement("button");
+          copyMsgBtn.type = "button";
+          copyMsgBtn.textContent = "Salin pesan";
+          copyMsgBtn.addEventListener("click", () => copyText(messageFor(g)));
+
+          const copyLinkBtn = document.createElement("button");
+          copyLinkBtn.type = "button";
+          copyLinkBtn.textContent = "Salin link";
+          copyLinkBtn.addEventListener("click", () => copyText(linkFor(g.name)));
+
+          const preview = document.createElement("a");
+          preview.className = "btn";
+          preview.href = linkFor(g.name);
+          preview.target = "_blank";
+          preview.rel = "noopener noreferrer";
+          preview.textContent = "Lihat";
+
+          actions.append(wa, copyMsgBtn, copyLinkBtn, preview);
+          li.append(top, linkDiv, actions);
+          ul.append(li);
+        });
+      }
+
+      guestsEl.addEventListener("input", () => { store.set("guests", guestsEl.value); render(); });
+      tplEl.addEventListener("input", () => { store.set("tpl", tplEl.value); render(); });
+      $("#resetTpl").addEventListener("click", () => { tplEl.value = DEFAULT_TPL; store.set("tpl", DEFAULT_TPL); render(); toast("Template dikembalikan"); });
+      $("#copyAll").addEventListener("click", () => {
+        const list = parseGuests();
+        if (!list.length) return toast("Daftar tamu masih kosong");
+        copyText(list.map((g) => `${g.name}\t${linkFor(g.name)}`).join("\n"));
+      });
+      $("#clearSent").addEventListener("click", () => { sent = {}; store.set("sent", sent); render(); toast("Tanda terkirim direset"); });
+
+      render();
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 800">
+  <defs>
+    <linearGradient id="g3" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#112E28"/>
+      <stop offset="60%" stop-color="#0E1A18"/>
+      <stop offset="100%" stop-color="#1A150E"/>
+    </linearGradient>
+  </defs>
+  <rect width="600" height="800" fill="url(#g3)"/>
+  <rect x="36" y="36" width="528" height="728" fill="none" stroke="#C9A96E" stroke-width="1.5" opacity="0.45"/>
+  <g stroke="#C9A96E" fill="none" opacity="0.55">
+    <polygon points="300,130 470,380 300,560 130,380" stroke-width="1.5"/>
+    <polygon points="300,175 430,380 300,515 170,380" stroke-width="1"/>
+    <line x1="300" y1="90" x2="300" y2="585" stroke-width="1"/>
+    <line x1="96" y1="380" x2="504" y2="380" stroke-width="1"/>
+  </g>
+  <circle cx="300" cy="380" r="22" fill="#C9A96E" opacity="0.35"/>
+  <text x="300" y="640" text-anchor="middle" font-family="Georgia, serif" font-style="italic" font-size="24" letter-spacing="4" fill="#F3EDE2" opacity="0.85">III · DECO</text>
+</svg>

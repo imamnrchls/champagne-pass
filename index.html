@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="id" data-theme="champagne-noir">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Undangan Pernikahan Rizky &amp; Ayu</title>
+  <meta name="description" content="Minggu, 14 Februari 2027 · Grand Ballroom Hotel Tentrem, Semarang. Kami mengundang Anda untuk hadir dan memberikan doa restu.">
+
+  <!-- Open Graph / WhatsApp Preview -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Undangan Pernikahan Rizky &amp; Ayu">
+  <meta property="og:description" content="Minggu, 14 Februari 2027 · Grand Ballroom Hotel Tentrem, Semarang. Merupakan suatu kehormatan apabila Bapak/Ibu/Saudara/i berkenan hadir.">
+  <meta property="og:image" content="og.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <meta name="theme-color" content="#0E0E0E">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="manifest" href="site.webmanifest">
+
+  <!-- Maksimal 2 keluarga font per tema (Cormorant Garamond + Montserrat), font-display: swap -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Montserrat:wght@300;400;500&display=swap">
+
+  <!-- Layer 2: Skeleton CSS -->
+  <link rel="stylesheet" href="core/skeleton.css">
+
+  <!-- Layer 3: Theme CSS -->
+  <link rel="stylesheet" href="themes/champagne-noir/theme.css">
+  <link rel="stylesheet" href="themes/merah-delima/theme.css">
+</head>
+<body class="lk-locked">
+  <!-- Section 1 & 2: Cover + Gate / Opener -->
+  <section class="lk-cover" id="lk-cover" aria-label="Sampul undangan"></section>
+
+  <!-- Section 3–7: Konten Undangan (dirender oleh Skeleton Engine) -->
+  <main class="lk-shell" id="lk-main"></main>
+
+  <!-- Komponen persisten: tombol musik (tersembunyi bila musik.url kosong) + toast -->
+  <button class="lk-music-btn" id="lk-music-btn" type="button" hidden aria-label="Putar musik latar" aria-pressed="false"></button>
+  <audio id="lk-audio" loop preload="none"></audio>
+  <div class="lk-toast" id="lk-toast" role="status" aria-live="polite"></div>
+
+  <!-- Layer 1: Data -->
+  <script src="data/invitation.js" defer></script>
+
+  <!-- Layer 3: Theme Registry & Themes -->
+  <script src="themes/registry.js" defer></script>
+  <script src="themes/champagne-noir/theme.js" defer></script>
+  <script src="themes/merah-delima/theme.js" defer></script>
+
+  <!-- Layer 2: Skeleton Engine -->
+  <script src="core/skeleton.js" defer></script>
+</body>
+</html>

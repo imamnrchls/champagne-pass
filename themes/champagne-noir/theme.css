@@ -1,0 +1,417 @@
+/* ==========================================================================
+   LAYER 3 — TEMA: CHAMPAGNE NOIR
+   Mood: Resepsi ballroom — mewah tapi tenang, banyak ruang kosong,
+   emas dipakai hemat (hanya judul/ornamen, paragraf wajib krem #F3EDE2).
+   ========================================================================== */
+
+[data-theme="champagne-noir"] {
+  --bg:           #0E0E0E;
+  --bg-outer:     #070707;
+  --surface:      #171717;
+  --gold:         #C9A96E;
+  --accent:       #C9A96E;
+  --text:         #F3EDE2;
+  --text-muted:   #B8B0A2;
+  --line:         rgba(201, 169, 110, 0.35);
+  --error:        #F09898;
+  --font-display: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+  --font-body:    "Montserrat", system-ui, -apple-system, sans-serif;
+  --radius:       2px;
+  --dur-slow:     900ms;
+  --ease:         cubic-bezier(0.22, 0.61, 0.36, 1);
+  color-scheme:   dark;
+}
+
+[data-theme="champagne-noir"] body {
+  font-weight: 300;
+  letter-spacing: 0.015em;
+}
+
+/* ---------- Cover & Envelope Wax-Seal Opener (§5.4 #1 & #2) ---------- */
+[data-theme="champagne-noir"] .lk-cover {
+  background: radial-gradient(circle at 50% 34%, rgba(201, 169, 110, 0.06), transparent 58%), var(--bg);
+  transition: opacity 450ms var(--ease);
+}
+
+[data-theme="champagne-noir"] .lk-cover.cn-fading {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.cn-cover-inner {
+  width: 100%;
+  max-width: 360px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.cn-cover-eyebrow {
+  margin: 0 0 26px;
+  font-size: 10.5px;
+  font-weight: 400;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+/* Amplop hitam matte di tengah dengan segel lilin */
+.cn-envelope-stage {
+  position: relative;
+  width: min(286px, 82vw);
+  height: 194px;
+  margin-bottom: 32px;
+  perspective: 900px;
+}
+
+.cn-envelope {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(165deg, #1a1a1a 0%, #101010 100%);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: 0 24px 54px rgba(0, 0, 0, 0.65);
+}
+
+/* Bingkai tipis dalam amplop */
+.cn-envelope::before {
+  content: "";
+  position: absolute;
+  inset: 7px;
+  border: 1px solid rgba(201, 169, 110, 0.18);
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Kartu undangan di dalam amplop yang naik keluar */
+.cn-card {
+  position: absolute;
+  left: 14px;
+  right: 14px;
+  top: 16px;
+  bottom: 14px;
+  background: var(--surface);
+  border: 1px solid var(--gold);
+  border-radius: var(--radius);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 12px;
+  z-index: 2;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: transform 550ms var(--ease), opacity 420ms var(--ease);
+}
+
+.cn-card-names {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  color: var(--gold);
+}
+
+.cn-card-date {
+  margin: 0;
+  font-size: 9.5px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+/* Saku depan amplop (lipatan kiri, kanan, bawah) */
+.cn-pocket {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.cn-pocket svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* Flap atas amplop (rotateX 600ms) */
+.cn-flap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 58%;
+  z-index: 4;
+  transform-origin: top center;
+  transform: rotateX(0deg);
+  transition: transform 600ms var(--ease);
+  pointer-events: none;
+}
+
+.cn-flap svg {
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.45));
+}
+
+/* Segel lilin bertuliskan inisial (scale + fade 300ms) */
+.cn-seal {
+  position: absolute;
+  left: 50%;
+  top: 52%;
+  z-index: 5;
+  width: 64px;
+  height: 64px;
+  margin-left: -32px;
+  margin-top: -32px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #e0c389 0%, #c9a96e 48%, #8f6f3b 100%);
+  border: 1px solid rgba(243, 237, 226, 0.35);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.55), inset 0 0 0 4px rgba(14, 14, 14, 0.16);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transform: scale(1);
+  opacity: 1;
+  transition: transform 300ms var(--ease), opacity 300ms var(--ease);
+}
+
+.cn-seal::before {
+  content: "";
+  position: absolute;
+  inset: 5px;
+  border-radius: 50%;
+  border: 1px solid rgba(14, 14, 14, 0.28);
+  pointer-events: none;
+}
+
+.cn-seal-text {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: #16120b;
+  line-height: 1;
+}
+
+/* State animasi pembuka (Total <= 1.85 detik) */
+.lk-cover.cn-sealing .cn-seal {
+  transform: scale(0.65) rotate(-14deg);
+  opacity: 0;
+}
+
+.lk-cover.cn-unfolding .cn-flap {
+  transform: rotateX(-165deg);
+}
+
+.lk-cover.cn-rising .cn-card {
+  z-index: 4;
+  transform: translateY(-64px);
+  opacity: 1;
+}
+
+/* Info tamu di bawah amplop */
+.cn-to-label {
+  margin: 0 0 6px;
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.cn-guest-name {
+  margin: 0 0 26px;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(24px, 6.5vw, 32px);
+  line-height: 1.25;
+  color: var(--text);
+  max-width: 100%;
+  overflow-wrap: anywhere;
+}
+
+.cn-cover-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.cn-open-btn {
+  min-width: 210px;
+}
+
+/* ---------- Monogram Emas Besar — Satu-satunya Efek Kilau (Shimmer 1x) ---------- */
+.cn-monogram {
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  width: 104px;
+  height: 104px;
+  margin: 0 auto 10px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+
+.cn-monogram::before {
+  content: "";
+  position: absolute;
+  inset: 6px;
+  border: 1px solid rgba(201, 169, 110, 0.55);
+  pointer-events: none;
+}
+
+/* Shimmer halus 1x saat muncul (transform + opacity only) */
+.cn-monogram::after {
+  content: "";
+  position: absolute;
+  inset: -10% -60%;
+  background: linear-gradient(
+    115deg,
+    transparent 35%,
+    rgba(243, 237, 226, 0.28) 50%,
+    transparent 65%
+  );
+  transform: translateX(-100%);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.lk-reveal.is-visible .cn-monogram::after {
+  animation: cn-shimmer-once 1400ms var(--ease) 250ms 1 forwards;
+}
+
+@keyframes cn-shimmer-once {
+  0% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+.cn-monogram-letters {
+  font-family: var(--font-display);
+  font-size: 40px;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  color: var(--gold);
+  line-height: 1;
+  padding-left: 0.1em;
+}
+
+/* ---------- Bingkai Foto Art Deco (Sudut Bertingkat) ---------- */
+.cn-deco-frame {
+  position: relative;
+  display: inline-block;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+
+.cn-deco-frame::before {
+  content: "";
+  position: absolute;
+  inset: 5px;
+  border: 1px solid rgba(201, 169, 110, 0.22);
+  pointer-events: none;
+}
+
+/* Sudut bertingkat Art Deco */
+.cn-corner {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  border-color: var(--gold);
+  border-style: solid;
+  border-width: 0;
+  pointer-events: none;
+}
+
+.cn-corner--tl { top: -1px; left: -1px; border-top-width: 2px; border-left-width: 2px; }
+.cn-corner--tr { top: -1px; right: -1px; border-top-width: 2px; border-right-width: 2px; }
+.cn-corner--bl { bottom: -1px; left: -1px; border-bottom-width: 2px; border-left-width: 2px; }
+.cn-corner--br { bottom: -1px; right: -1px; border-bottom-width: 2px; border-right-width: 2px; }
+
+.cn-portrait-art {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: radial-gradient(circle at 50% 35%, rgba(201, 169, 110, 0.08), transparent 68%), var(--surface);
+}
+
+.cn-portrait-art svg {
+  width: 84px;
+  height: 84px;
+  opacity: 0.78;
+}
+
+.cn-portrait-initial {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 20px;
+  letter-spacing: 0.16em;
+  color: var(--gold);
+}
+
+/* ---------- Detail Acara Art Deco Corner Accents ---------- */
+[data-theme="champagne-noir"] .lk-event-card::before {
+  content: "";
+  position: absolute;
+  inset: 6px;
+  border: 1px solid rgba(201, 169, 110, 0.14);
+  pointer-events: none;
+}
+
+/* ---------- Galeri: Grayscale Default -> Berwarna saat Tap/Hover (400ms) ---------- */
+[data-theme="champagne-noir"] .lk-gallery-item img {
+  filter: grayscale(100%) contrast(1.04);
+}
+
+[data-theme="champagne-noir"] .lk-gallery-item:hover img,
+[data-theme="champagne-noir"] .lk-gallery-item:focus-visible img,
+[data-theme="champagne-noir"] .lk-gallery-item:active img {
+  filter: grayscale(0%) contrast(1);
+}
+
+/* ---------- Amplop Digital: Kartu Hitam-Emas Minimalis ---------- */
+[data-theme="champagne-noir"] .lk-bank-card {
+  background: linear-gradient(155deg, rgba(201, 169, 110, 0.07) 0%, var(--surface) 45%, var(--bg) 100%);
+  border-color: rgba(201, 169, 110, 0.45);
+}
+
+[data-theme="champagne-noir"] .lk-bank-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  opacity: 0.7;
+}
+
+/* ---------- Reduced Motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .lk-reveal.is-visible .cn-monogram::after {
+    animation: none !important;
+    opacity: 0 !important;
+  }
+}

@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 800">
+  <defs>
+    <linearGradient id="g6" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0F2A24"/>
+      <stop offset="55%" stop-color="#151515"/>
+      <stop offset="100%" stop-color="#221A10"/>
+    </linearGradient>
+  </defs>
+  <rect width="600" height="800" fill="url(#g6)"/>
+  <rect x="36" y="36" width="528" height="728" fill="none" stroke="#C9A96E" stroke-width="1.5" opacity="0.5"/>
+  <rect x="130" y="210" width="340" height="340" fill="none" stroke="#C9A96E" stroke-width="1.5" opacity="0.7"/>
+  <rect x="148" y="228" width="304" height="304" fill="none" stroke="#C9A96E" stroke-width="0.9" opacity="0.35"/>
+  <text x="300" y="408" text-anchor="middle" font-family="Georgia, serif" font-size="112" letter-spacing="12" fill="#E3C481">RA</text>
+  <text x="300" y="640" text-anchor="middle" font-family="Georgia, serif" font-style="italic" font-size="24" letter-spacing="4" fill="#F3EDE2" opacity="0.85">VI · SELAMANYA</text>
+</svg>

@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 800">
+  <defs>
+    <linearGradient id="g5" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#14110D"/>
+      <stop offset="50%" stop-color="#2E2111"/>
+      <stop offset="100%" stop-color="#0E1F1B"/>
+    </linearGradient>
+    <radialGradient id="s5" cx="50%" cy="34%" r="48%">
+      <stop offset="0%" stop-color="#F0CE84" stop-opacity="0.42"/>
+      <stop offset="100%" stop-color="#C9A96E" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="600" height="800" fill="url(#g5)"/>
+  <rect width="600" height="800" fill="url(#s5)"/>
+  <rect x="36" y="36" width="528" height="728" fill="none" stroke="#C9A96E" stroke-width="1.5" opacity="0.45"/>
+  <g stroke="#E6C782" fill="none" stroke-width="1.8" opacity="0.82">
+    <path d="M210 220 H282 L272 340 C268 370 224 370 220 340 Z"/>
+    <line x1="246" y1="362" x2="246" y2="510"/>
+    <line x1="210" y1="510" x2="282" y2="510"/>
+    <path d="M318 220 H390 L380 340 C376 370 332 370 328 340 Z"/>
+    <line x1="354" y1="362" x2="354" y2="510"/>
+    <line x1="318" y1="510" x2="390" y2="510"/>
+  </g>
+  <text x="300" y="640" text-anchor="middle" font-family="Georgia, serif" font-style="italic" font-size="24" letter-spacing="4" fill="#F3EDE2" opacity="0.85">V · MALAM</text>
+</svg>

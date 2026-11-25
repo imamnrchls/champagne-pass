@@ -1,0 +1,235 @@
+/**
+ * LAYER 3 — TEMA: CHAMPAGNE NOIR
+ * Kontrak tema sesuai SPEC §2.2 & §5:
+ * tokens, labels (§5.3), opener (amplop + segel lilin <= 2s),
+ * ornaments (monogram shimmer 1x, divider art deco, bingkai sudut bertingkat), section_order.
+ */
+(function () {
+  "use strict";
+
+  function el(tag, className, text) {
+    const node = document.createElement(tag);
+    if (className) node.className = className;
+    if (text !== undefined && text !== null) node.textContent = String(text);
+    return node;
+  }
+
+  function svgEl(viewBox, markup, width, height) {
+    const ns = "http://www.w3.org/2000/svg";
+    const s = document.createElementNS(ns, "svg");
+    s.setAttribute("viewBox", viewBox);
+    if (width) s.setAttribute("width", String(width));
+    if (height) s.setAttribute("height", String(height));
+    s.setAttribute("aria-hidden", "true");
+    s.innerHTML = markup;
+    return s;
+  }
+
+  function fmtShortDate(iso) {
+    if (!iso) return "";
+    const d = new Date(iso);
+    if (Number.isNaN(d.getTime())) return "";
+    return d.toLocaleDateString("id-ID", {
+      day: "2-digit",
+      month: "long",
+      year: "numeric",
+      timeZone: "Asia/Jakarta"
+    });
+  }
+
+  window.LKThemes.register("champagne-noir", {
+    name: "Champagne Noir",
+
+    tokens: {
+      bg: "#0E0E0E",
+      surface: "#171717",
+      gold: "#C9A96E",
+      text: "#F3EDE2",
+      textMuted: "#B8B0A2",
+      line: "rgba(201,169,110,.35)",
+      fontDisplay: '"Cormorant Garamond", serif',
+      fontBody: '"Montserrat", sans-serif',
+      radius: "2px",
+      durSlow: "900ms"
+    },
+
+    // Kamus label sesuai SPEC §5.3
+    labels: {
+      open_button: "Buka Undangan",
+      skip_button: "Lewati",
+      couple_title: "Mempelai",
+      events_title: "Waktu & Tempat",
+      dress_code_title: "Dress Code",
+      story_title: "Kisah Kami",
+      gallery_title: "Galeri",
+      rsvp_title: "Konfirmasi Kehadiran",
+      wishes_title: "Doa & Ucapan",
+      gift_title: "Tanda Kasih",
+      closing: "Merupakan suatu kehormatan apabila Bapak/Ibu/Saudara/i berkenan hadir."
+    },
+
+    section_order: ["pembuka", "acara", "cerita_galeri", "rsvp", "amplop"],
+
+    opener: {
+      render(container, data, labels, hooks) {
+        const inner = el("div", "cn-cover-inner");
+        const initials = data.inisial ||
+          `${(data.mempelai.pria.nama_panggilan || "P")[0]}${(data.mempelai.wanita.nama_panggilan || "W")[0]}`.toUpperCase();
+        const coupleNames = `${data.mempelai.pria.nama_panggilan} & ${data.mempelai.wanita.nama_panggilan}`;
+        const firstDate = Array.isArray(data.acara) && data.acara[0] ? fmtShortDate(data.acara[0].mulai) : "";
+
+        inner.append(el("p", "cn-cover-eyebrow", "The Wedding of"));
+
+        // Amplop hitam + kartu dalam + flap + segel lilin
+        const stage = el("div", "cn-envelope-stage");
+        const env = el("div", "cn-envelope");
+
+        const card = el("div", "cn-card");
+        card.append(
+          el("p", "cn-card-names", coupleNames),
+          el("p", "cn-card-date", firstDate)
+        );
+
+        const pocket = el("div", "cn-pocket");
+        pocket.append(
+          svgEl(
+            "0 0 300 200",
+            '<polygon points="0,0 150,110 0,200" fill="var(--surface)" stroke="rgba(201,169,110,0.28)" stroke-width="1"/>' +
+            '<polygon points="300,0 150,110 300,200" fill="var(--surface)" stroke="rgba(201,169,110,0.28)" stroke-width="1"/>' +
+            '<polygon points="0,200 150,96 300,200" fill="var(--bg)" stroke="rgba(201,169,110,0.34)" stroke-width="1"/>'
+          )
+        );
+
+        const flap = el("div", "cn-flap");
+        flap.append(
+          svgEl(
+            "0 0 300 120",
+            '<polygon points="0,0 300,0 150,114" fill="var(--surface)" stroke="rgba(201,169,110,0.45)" stroke-width="1.2"/>' +
+            '<polyline points="16,8 150,104 284,8" fill="none" stroke="rgba(201,169,110,0.2)" stroke-width="0.9"/>'
+          )
+        );
+
+        const seal = el("button", "cn-seal");
+        seal.type = "button";
+        seal.setAttribute("aria-label", `${labels.open_button} (${initials})`);
+        seal.append(el("span", "cn-seal-text", initials));
+        seal.addEventListener("click", hooks.onOpen);
+
+        env.append(card, pocket, flap, seal);
+        stage.append(env);
+        inner.append(stage);
+
+        // Kepada Yth. + Nama Tamu (serif italic)
+        inner.append(
+          el("p", "cn-to-label", labels.to_prefix),
+          el("p", "cn-guest-name", hooks.guestName)
+        );
+
+        // Tombol buka (outline emas) + tombol Lewati
+        const actions = el("div", "cn-cover-actions");
+        const openBtn = el("button", "lk-btn cn-open-btn", labels.open_button);
+        openBtn.type = "button";
+        openBtn.addEventListener("click", hooks.onOpen);
+
+        const skipBtn = el("button", "lk-btn lk-btn--ghost", labels.skip_button);
+        skipBtn.type = "button";
+        skipBtn.addEventListener("click", hooks.onSkip);
+
+        actions.append(openBtn, skipBtn);
+        inner.append(actions);
+
+        container.replaceChildren(inner);
+      },
+
+      // Sekuens pembuka amplop: segel 300ms -> flap 600ms -> kartu naik 550ms -> fade 450ms (Total ~1.8s <= 2s)
+      open(container, { onComplete }) {
+        if (container.dataset.opening === "1") return;
+        container.dataset.opening = "1";
+
+        // Disable interaksi ganda pada tombol cover
+        container.querySelectorAll("button").forEach((b) => {
+          b.disabled = true;
+        });
+
+        container.classList.add("cn-sealing");
+
+        setTimeout(() => {
+          container.classList.add("cn-unfolding");
+        }, 280);
+
+        setTimeout(() => {
+          container.classList.add("cn-rising");
+        }, 760);
+
+        setTimeout(() => {
+          container.classList.add("cn-fading");
+        }, 1340);
+
+        setTimeout(() => {
+          onComplete();
+        }, 1800);
+      }
+    },
+
+    ornaments: {
+      monogram(initials) {
+        const box = el("div", "cn-monogram");
+        box.setAttribute("aria-label", `Monogram ${initials}`);
+        box.append(el("span", "cn-monogram-letters", initials));
+        return box;
+      },
+
+      divider() {
+        return svgEl(
+          "0 0 180 18",
+          '<line x1="0" y1="9" x2="72" y2="9" stroke="currentColor" stroke-width="0.9" opacity="0.45"/>' +
+          '<polygon points="90,2 97,9 90,16 83,9" fill="none" stroke="currentColor" stroke-width="1.1"/>' +
+          '<circle cx="90" cy="9" r="1.8" fill="currentColor"/>' +
+          '<line x1="108" y1="9" x2="180" y2="9" stroke="currentColor" stroke-width="0.9" opacity="0.45"/>',
+          180,
+          18
+        );
+      },
+
+      photoFrame(contentEl) {
+        const frame = el("div", "cn-deco-frame");
+        frame.append(
+          el("span", "cn-corner cn-corner--tl"),
+          el("span", "cn-corner cn-corner--tr"),
+          el("span", "cn-corner cn-corner--bl"),
+          el("span", "cn-corner cn-corner--br"),
+          contentEl
+        );
+        return frame;
+      },
+
+      portraitPlaceholder(initial, nickname) {
+        const wrap = el("div", "cn-portrait-art");
+        wrap.append(
+          svgEl(
+            "0 0 120 120",
+            '<rect x="14" y="14" width="92" height="92" fill="none" stroke="currentColor" stroke-width="0.8" opacity="0.35"/>' +
+            '<polygon points="60,22 98,60 60,98 22,60" fill="none" stroke="currentColor" stroke-width="0.9" opacity="0.5"/>' +
+            '<circle cx="60" cy="52" r="13" fill="none" stroke="currentColor" stroke-width="1.1"/>' +
+            '<path d="M38 86c3-13 12-20 22-20s19 7 22 20" fill="none" stroke="currentColor" stroke-width="1.1"/>',
+            84,
+            84
+          ),
+          el("span", "cn-portrait-initial", nickname || initial)
+        );
+        return wrap;
+      },
+
+      closingEmblem(initials) {
+        return svgEl(
+          "0 0 100 68",
+          '<circle cx="40" cy="34" r="20" fill="none" stroke="currentColor" stroke-width="1" opacity="0.65"/>' +
+          '<circle cx="60" cy="34" r="20" fill="none" stroke="currentColor" stroke-width="1" opacity="0.65"/>' +
+          `<text x="50" y="39" text-anchor="middle" font-family="Cormorant Garamond, Georgia, serif" font-size="16" letter-spacing="2" fill="currentColor">${String(initials).replace(/[<>&"']/g, "")}</text>`,
+          100,
+          68
+        );
+      }
+    }
+  });
+})();
