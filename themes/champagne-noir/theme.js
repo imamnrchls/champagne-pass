@@ -263,16 +263,21 @@
 
       portraitPlaceholder(initial, nickname) {
         const wrap = el("div", "cn-portrait-art");
+        // Sunburst Art Deco dari dasar lengkung + inisial serif besar
         wrap.append(
           svgEl(
-            "0 0 120 120",
-            '<rect x="14" y="14" width="92" height="92" fill="none" stroke="currentColor" stroke-width="0.8" opacity="0.35"/>' +
-            '<polygon points="60,22 98,60 60,98 22,60" fill="none" stroke="currentColor" stroke-width="0.9" opacity="0.5"/>' +
-            '<circle cx="60" cy="52" r="13" fill="none" stroke="currentColor" stroke-width="1.1"/>' +
-            '<path d="M38 86c3-13 12-20 22-20s19 7 22 20" fill="none" stroke="currentColor" stroke-width="1.1"/>',
-            84,
-            84
-          ),
+            "0 0 200 260",
+            '<g class="cn-sunburst" stroke="currentColor" stroke-width="0.6" fill="none"><line x1="100" y1="250" x2="-64.2" y2="206.0" /><line x1="100" y1="250" x2="-47.2" y2="165.0" /><line x1="100" y1="250" x2="-20.2" y2="129.8" /><line x1="100" y1="250" x2="15.0" y2="102.8" /><line x1="100" y1="250" x2="56.0" y2="85.8" /><line x1="100" y1="250" x2="100.0" y2="80.0" /><line x1="100" y1="250" x2="144.0" y2="85.8" /><line x1="100" y1="250" x2="185.0" y2="102.8" /><line x1="100" y1="250" x2="220.2" y2="129.8" /><line x1="100" y1="250" x2="247.2" y2="165.0" /><line x1="100" y1="250" x2="264.2" y2="206.0" /></g>' +
+            '<g stroke="currentColor" fill="none">' +
+            '<path d="M30 250 A70 70 0 0 1 170 250" stroke-width="0.8" opacity="0.5"/>' +
+            '<path d="M55 250 A45 45 0 0 1 145 250" stroke-width="0.8" opacity="0.35"/>' +
+            '</g>'
+          )
+        );
+        wrap.firstChild.classList.add("cn-portrait-bg");
+        wrap.firstChild.setAttribute("preserveAspectRatio", "xMidYMax slice");
+        wrap.append(
+          el("span", "cn-portrait-letter", initial),
           el("span", "cn-portrait-initial", nickname || initial)
         );
         return wrap;

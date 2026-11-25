@@ -348,6 +348,16 @@ a {
   color: var(--text, #f3ede2);
 }
 
+.lk-person-parents-rel,
+.lk-person-parents-names {
+  display: block;
+}
+
+.lk-person-parents-rel {
+  margin-bottom: 2px;
+  color: var(--text-muted, #b8b0a2);
+}
+
 .lk-ig-link {
   display: inline-flex;
   align-items: center;

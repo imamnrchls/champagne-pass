@@ -460,6 +460,21 @@
     const showPhoto = data.tampilkan_foto_mempelai !== false;
     const coupleGrid = el("div", `lk-couple-grid${showPhoto ? "" : " lk-couple-grid--no-photo"}`);
 
+    // "Putra pertama dari Bpk. X & Ibu Y" -> baris relasi + baris nama orang tua
+    function buildParents(text) {
+      const p = el("p", "lk-person-parents");
+      const m = String(text || "").match(/^(.*?\bdari)\s+(.+)$/i);
+      if (!m) {
+        p.textContent = text || "";
+        return p;
+      }
+      p.append(
+        el("span", "lk-person-parents-rel", m[1]),
+        el("span", "lk-person-parents-names", m[2])
+      );
+      return p;
+    }
+
     function buildPerson(person, roleLabel, fallbackInitial) {
       const card = el("article", "lk-person lk-reveal");
 
@@ -490,7 +505,7 @@
       card.append(
         el("p", "lk-person-role", roleLabel),
         el("h3", "lk-person-name", person.nama_lengkap),
-        el("p", "lk-person-parents", person.ortu)
+        buildParents(person.ortu)
       );
 
       if (person.instagram) {

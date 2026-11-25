@@ -606,28 +606,225 @@
 .cn-corner--br { bottom: -1px; right: -1px; border-bottom-width: 2px; border-right-width: 2px; }
 
 .cn-portrait-art {
+  position: relative;
   width: 100%;
   height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  background: radial-gradient(circle at 50% 35%, rgba(201, 169, 110, 0.08), transparent 68%), var(--surface);
+  gap: 4px;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse 80% 55% at 50% 100%, rgba(201, 169, 110, 0.14), transparent 70%),
+    linear-gradient(180deg, #1b1a18 0%, var(--surface) 55%, #121212 100%);
 }
 
-.cn-portrait-art svg {
-  width: 84px;
-  height: 84px;
-  opacity: 0.78;
+.cn-portrait-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  color: var(--gold);
+}
+
+.cn-sunburst {
+  opacity: 0.22;
+}
+
+.cn-portrait-letter {
+  position: relative;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 400;
+  font-size: 96px;
+  line-height: 0.9;
+  color: var(--gold);
+  text-shadow: 0 0 28px rgba(201, 169, 110, 0.25);
+  margin-top: 18px;
 }
 
 .cn-portrait-initial {
+  position: relative;
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.42em;
+  padding-left: 0.42em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+/* ---------- Profil Mempelai: bingkai lengkung Art Deco ---------- */
+[data-theme="champagne-noir"] .lk-couple-grid {
+  gap: 34px;
+  margin-top: 30px;
+}
+
+[data-theme="champagne-noir"] .lk-person-photo-wrap {
+  position: relative;
+  margin-bottom: 26px;
+}
+
+/* Halo lembut di belakang potret */
+[data-theme="champagne-noir"] .lk-person-photo-wrap::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 46%;
+  width: 150%;
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, rgba(201, 169, 110, 0.08), transparent 62%);
+  pointer-events: none;
+}
+
+[data-theme="champagne-noir"] .lk-person .cn-deco-frame,
+[data-theme="champagne-noir"] .lk-person .cn-deco-frame::before,
+[data-theme="champagne-noir"] .lk-person-photo,
+[data-theme="champagne-noir"] .lk-person-placeholder {
+  border-radius: 999px 999px var(--radius) var(--radius);
+}
+
+[data-theme="champagne-noir"] .lk-person .cn-deco-frame {
+  padding: 10px;
+  border-color: rgba(201, 169, 110, 0.5);
+  box-shadow: 0 30px 60px -28px rgba(0, 0, 0, 0.9);
+}
+
+[data-theme="champagne-noir"] .lk-person .cn-deco-frame::before {
+  inset: 4px;
+  border-color: rgba(201, 169, 110, 0.2);
+}
+
+[data-theme="champagne-noir"] .lk-person-photo,
+[data-theme="champagne-noir"] .lk-person-placeholder {
+  width: 200px;
+  height: 268px;
+  overflow: hidden;
+}
+
+/* Sudut atas tak cocok dengan lengkung: sembunyikan, ganti batu kunci di puncak */
+[data-theme="champagne-noir"] .lk-person .cn-corner--tl,
+[data-theme="champagne-noir"] .lk-person .cn-corner--tr {
+  display: none;
+}
+
+[data-theme="champagne-noir"] .lk-person .cn-corner--bl,
+[data-theme="champagne-noir"] .lk-person .cn-corner--br {
+  width: 22px;
+  height: 22px;
+  bottom: -5px;
+  border-width: 0;
+  border-bottom-width: 1px;
+}
+
+[data-theme="champagne-noir"] .lk-person .cn-corner--bl { left: -14px; border-left-width: 0; }
+[data-theme="champagne-noir"] .lk-person .cn-corner--br { right: -14px; border-right-width: 0; }
+
+[data-theme="champagne-noir"] .lk-person .cn-deco-frame::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: -6px;
+  width: 11px;
+  height: 11px;
+  margin-left: -5.5px;
+  transform: rotate(45deg);
+  background: var(--bg);
+  border: 1px solid var(--gold);
+  box-shadow: 0 0 0 3px var(--bg);
+}
+
+/* Label peran diapit belah ketupat kecil */
+[data-theme="champagne-noir"] .lk-person-role {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+  font-size: 10px;
+  letter-spacing: 0.34em;
+  padding-left: 0.34em;
+  color: var(--gold);
+}
+
+[data-theme="champagne-noir"] .lk-person-role::before,
+[data-theme="champagne-noir"] .lk-person-role::after {
+  content: "";
+  width: 5px;
+  height: 5px;
+  transform: rotate(45deg);
+  border: 1px solid currentColor;
+  opacity: 0.8;
+}
+
+[data-theme="champagne-noir"] .lk-person-name {
+  margin-bottom: 14px;
+  font-size: clamp(26px, 7vw, 32px);
+  font-weight: 500;
+  line-height: 1.15;
+  letter-spacing: 0.01em;
+  max-width: 16ch;
+  text-wrap: balance;
+}
+
+[data-theme="champagne-noir"] .lk-person-parents {
+  position: relative;
+  padding-top: 14px;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+[data-theme="champagne-noir"] .lk-person-parents::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 36px;
+  height: 1px;
+  margin-left: -18px;
+  background: var(--line);
+}
+
+[data-theme="champagne-noir"] .lk-person-parents-rel {
   font-family: var(--font-display);
   font-style: italic;
-  font-size: 20px;
-  letter-spacing: 0.16em;
-  color: var(--gold);
+  font-size: 16px;
+  letter-spacing: 0.01em;
+}
+
+[data-theme="champagne-noir"] .lk-person-parents-names {
+  text-wrap: balance;
+}
+
+[data-theme="champagne-noir"] .lk-ig-link {
+  margin-top: 16px;
+  padding: 7px 16px;
+  border-radius: 999px;
+  border-color: rgba(201, 169, 110, 0.3);
+  background: rgba(201, 169, 110, 0.04);
+}
+
+/* Pemisah "&" dalam medali belah ketupat */
+[data-theme="champagne-noir"] .lk-couple-sep {
+  position: relative;
+  gap: 22px;
+  font-size: 30px;
+}
+
+[data-theme="champagne-noir"] .lk-couple-sep::before,
+[data-theme="champagne-noir"] .lk-couple-sep::after {
+  width: 64px;
+  background: linear-gradient(90deg, transparent, var(--line));
+}
+
+[data-theme="champagne-noir"] .lk-couple-sep::after {
+  background: linear-gradient(90deg, var(--line), transparent);
+}
+
+[data-theme="champagne-noir"] .lk-couple-sep {
+  min-height: 52px;
+  padding-bottom: 4px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 52 52'%3E%3Cpath d='M26 2 50 26 26 50 2 26Z' fill='none' stroke='%23C9A96E' stroke-opacity='.45'/%3E%3Cpath d='M26 7 45 26 26 45 7 26Z' fill='none' stroke='%23C9A96E' stroke-opacity='.18'/%3E%3C/svg%3E") center / 52px 52px no-repeat;
 }
 
 /* ---------- Detail Acara Art Deco Corner Accents ---------- */
