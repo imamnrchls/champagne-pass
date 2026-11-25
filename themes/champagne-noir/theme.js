@@ -37,6 +37,19 @@
     });
   }
 
+  function fmtLongDate(iso) {
+    if (!iso) return "";
+    const d = new Date(iso);
+    if (Number.isNaN(d.getTime())) return "";
+    return d.toLocaleDateString("id-ID", {
+      weekday: "long",
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+      timeZone: "Asia/Jakarta"
+    });
+  }
+
   window.LKThemes.register("champagne-noir", {
     name: "Champagne Noir",
 
@@ -78,7 +91,50 @@
         const coupleNames = `${data.mempelai.pria.nama_panggilan} & ${data.mempelai.wanita.nama_panggilan}`;
         const firstDate = Array.isArray(data.acara) && data.acara[0] ? fmtShortDate(data.acara[0].mulai) : "";
 
-        inner.append(el("p", "cn-cover-eyebrow", "The Wedding of"));
+        const firstEvent = Array.isArray(data.acara) && data.acara[0] ? data.acara[0] : null;
+        const longDate = firstEvent ? fmtLongDate(firstEvent.mulai) : "";
+
+        // Bingkai Art Deco sepanjang layar + cahaya ambient (dekoratif)
+        const decor = el("div", "cn-cover-decor");
+        decor.setAttribute("aria-hidden", "true");
+        decor.append(
+          el("span", "cn-cover-glow"),
+          el("span", "cn-cover-frame"),
+          el("span", "cn-cover-corner cn-cover-corner--tl"),
+          el("span", "cn-cover-corner cn-cover-corner--tr"),
+          el("span", "cn-cover-corner cn-cover-corner--bl"),
+          el("span", "cn-cover-corner cn-cover-corner--br")
+        );
+        const dust = el("span", "cn-cover-dust");
+        for (let i = 0; i < 14; i++) {
+          const mote = el("i");
+          mote.style.setProperty("--x", `${(i * 37 + 11) % 100}%`);
+          mote.style.setProperty("--d", `${9 + (i * 7) % 8}s`);
+          mote.style.setProperty("--delay", `${-((i * 13) % 11)}s`);
+          mote.style.setProperty("--s", `${1 + (i % 3)}px`);
+          dust.append(mote);
+        }
+        decor.append(dust);
+
+        // Kepala sampul: eyebrow, nama pasangan, tanggal
+        const head = el("header", "cn-cover-head");
+        const title = el("h1", "cn-cover-names");
+        title.append(
+          el("span", "cn-cover-name", data.mempelai.pria.nama_panggilan),
+          el("span", "cn-cover-amp", "&"),
+          el("span", "cn-cover-name", data.mempelai.wanita.nama_panggilan)
+        );
+        head.append(el("p", "cn-cover-eyebrow", "The Wedding of"), title);
+        if (longDate) {
+          const dateRow = el("p", "cn-cover-date");
+          dateRow.append(
+            el("span", "cn-cover-date-line"),
+            el("span", "cn-cover-date-text", longDate),
+            el("span", "cn-cover-date-line")
+          );
+          head.append(dateRow);
+        }
+        inner.append(head);
 
         // Amplop hitam + kartu dalam + flap + segel lilin
         const stage = el("div", "cn-envelope-stage");
@@ -119,11 +175,13 @@
         stage.append(env);
         inner.append(stage);
 
-        // Kepada Yth. + Nama Tamu (serif italic)
-        inner.append(
+        // Kepada Yth. + Nama Tamu (serif italic) dalam plakat tipis
+        const guest = el("div", "cn-guest");
+        guest.append(
           el("p", "cn-to-label", labels.to_prefix),
           el("p", "cn-guest-name", hooks.guestName)
         );
+        inner.append(guest);
 
         // Tombol buka (outline emas) + tombol Lewati
         const actions = el("div", "cn-cover-actions");
@@ -138,7 +196,7 @@
         actions.append(openBtn, skipBtn);
         inner.append(actions);
 
-        container.replaceChildren(inner);
+        container.replaceChildren(decor, inner);
       },
 
       // Sekuens pembuka amplop: segel 300ms -> flap 600ms -> kartu naik 550ms -> fade 450ms (Total ~1.8s <= 2s)

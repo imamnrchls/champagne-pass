@@ -29,7 +29,11 @@
 
 /* ---------- Cover & Envelope Wax-Seal Opener (§5.4 #1 & #2) ---------- */
 [data-theme="champagne-noir"] .lk-cover {
-  background: radial-gradient(circle at 50% 34%, rgba(201, 169, 110, 0.06), transparent 58%), var(--bg);
+  justify-content: flex-start;
+  background:
+    radial-gradient(ellipse 120% 70% at 50% 0%, rgba(201, 169, 110, 0.07), transparent 60%),
+    radial-gradient(ellipse 90% 60% at 50% 100%, rgba(201, 169, 110, 0.05), transparent 65%),
+    var(--bg);
   transition: opacity 450ms var(--ease);
 }
 
@@ -38,21 +42,181 @@
   pointer-events: none;
 }
 
+/* ---- Dekor sampul: bingkai layar, sudut bertingkat, cahaya, debu emas ---- */
+.cn-cover-decor {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.cn-cover-glow {
+  position: absolute;
+  left: 50%;
+  top: 46%;
+  width: min(560px, 120vw);
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, rgba(201, 169, 110, 0.11) 0%, rgba(201, 169, 110, 0.03) 42%, transparent 68%);
+  animation: cn-glow-breathe 7s ease-in-out infinite;
+}
+
+@keyframes cn-glow-breathe {
+  0%, 100% { opacity: 0.75; transform: translate(-50%, -50%) scale(0.96); }
+  50%      { opacity: 1;    transform: translate(-50%, -50%) scale(1.04); }
+}
+
+.cn-cover-frame {
+  position: absolute;
+  inset: max(14px, env(safe-area-inset-top, 0px)) 14px max(14px, env(safe-area-inset-bottom, 0px));
+  border: 1px solid rgba(201, 169, 110, 0.22);
+}
+
+.cn-cover-frame::before {
+  content: "";
+  position: absolute;
+  inset: 5px;
+  border: 1px solid rgba(201, 169, 110, 0.1);
+}
+
+/* Sudut bertingkat Art Deco (dua garis L bertumpuk) */
+.cn-cover-corner {
+  position: absolute;
+  width: 34px;
+  height: 34px;
+  --o: max(14px, env(safe-area-inset-top, 0px));
+}
+
+.cn-cover-corner::before,
+.cn-cover-corner::after {
+  content: "";
+  position: absolute;
+  border: 0 solid var(--gold);
+}
+
+.cn-cover-corner::before { inset: 0; }
+.cn-cover-corner::after  { inset: 7px; opacity: 0.55; }
+
+.cn-cover-corner--tl { top: var(--o); left: 14px; }
+.cn-cover-corner--tr { top: var(--o); right: 14px; }
+.cn-cover-corner--bl { bottom: var(--o); left: 14px; }
+.cn-cover-corner--br { bottom: var(--o); right: 14px; }
+
+.cn-cover-corner--tl::before, .cn-cover-corner--tl::after { border-top-width: 1px; border-left-width: 1px; right: auto; bottom: auto; width: 22px; height: 22px; }
+.cn-cover-corner--tr::before, .cn-cover-corner--tr::after { border-top-width: 1px; border-right-width: 1px; left: auto; bottom: auto; width: 22px; height: 22px; }
+.cn-cover-corner--bl::before, .cn-cover-corner--bl::after { border-bottom-width: 1px; border-left-width: 1px; right: auto; top: auto; width: 22px; height: 22px; }
+.cn-cover-corner--br::before, .cn-cover-corner--br::after { border-bottom-width: 1px; border-right-width: 1px; left: auto; top: auto; width: 22px; height: 22px; }
+
+/* Debu emas melayang — sangat halus, hanya transform + opacity */
+.cn-cover-dust i {
+  position: absolute;
+  left: var(--x);
+  bottom: -10px;
+  width: var(--s);
+  height: var(--s);
+  border-radius: 50%;
+  background: var(--gold);
+  box-shadow: 0 0 6px rgba(201, 169, 110, 0.8);
+  opacity: 0;
+  animation: cn-dust-rise var(--d) linear var(--delay) infinite;
+}
+
+@keyframes cn-dust-rise {
+  0%   { transform: translate3d(0, 0, 0); opacity: 0; }
+  15%  { opacity: 0.55; }
+  85%  { opacity: 0.35; }
+  100% { transform: translate3d(18px, -105vh, 0); opacity: 0; }
+}
+
+/* ---- Konten sampul ---- */
 .cn-cover-inner {
+  position: relative;
+  z-index: 1;
   width: 100%;
-  max-width: 360px;
+  max-width: 380px;
+  margin-block: auto;
+  padding-block: 22px;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
+/* Masuk bertahap (stagger) saat sampul pertama tampil */
+.cn-cover-inner > * {
+  opacity: 0;
+  animation: cn-cover-in 900ms var(--ease) forwards;
+}
+
+.cn-cover-inner > :nth-child(1) { animation-delay: 120ms; }
+.cn-cover-inner > :nth-child(2) { animation-delay: 380ms; }
+.cn-cover-inner > :nth-child(3) { animation-delay: 620ms; }
+.cn-cover-inner > :nth-child(4) { animation-delay: 820ms; }
+
+@keyframes cn-cover-in {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: none; }
+}
+
+.cn-cover-head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
 .cn-cover-eyebrow {
-  margin: 0 0 26px;
+  margin: 0 0 14px;
   font-size: 10.5px;
   font-weight: 400;
-  letter-spacing: 0.34em;
+  letter-spacing: 0.42em;
+  padding-left: 0.42em;
   text-transform: uppercase;
   color: var(--gold);
+}
+
+.cn-cover-names {
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: center;
+  column-gap: 0.28em;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(42px, 12.5vw, 60px);
+  line-height: 1.05;
+  letter-spacing: 0.02em;
+  color: var(--text);
+}
+
+.cn-cover-amp {
+  font-style: italic;
+  font-weight: 400;
+  font-size: 0.82em;
+  color: var(--gold);
+}
+
+.cn-cover-date {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 14px 0 0;
+  font-size: 10px;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.cn-cover-date-line {
+  width: 28px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold));
+  opacity: 0.7;
+}
+
+.cn-cover-date-line:last-child {
+  background: linear-gradient(90deg, var(--gold), transparent);
 }
 
 /* Amplop hitam matte di tengah dengan segel lilin */
@@ -60,7 +224,7 @@
   position: relative;
   width: min(286px, 82vw);
   height: 194px;
-  margin-bottom: 32px;
+  margin-bottom: 30px;
   perspective: 900px;
 }
 
@@ -188,6 +352,33 @@
   pointer-events: none;
 }
 
+/* Cincin denyut lembut: isyarat bahwa segel bisa diketuk */
+.cn-seal::after {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: 50%;
+  border: 1px solid rgba(224, 195, 137, 0.7);
+  animation: cn-seal-pulse 2.6s var(--ease) 1.6s infinite;
+  opacity: 0;
+  pointer-events: none;
+}
+
+@keyframes cn-seal-pulse {
+  0%   { transform: scale(1);   opacity: 0.8; }
+  70%  { transform: scale(1.7); opacity: 0; }
+  100% { transform: scale(1.7); opacity: 0; }
+}
+
+.cn-seal:hover {
+  transform: scale(1.06);
+}
+
+.cn-seal:focus-visible {
+  outline: 1px solid var(--gold);
+  outline-offset: 5px;
+}
+
 .cn-seal-text {
   font-family: var(--font-display);
   font-size: 22px;
@@ -213,21 +404,42 @@
   opacity: 1;
 }
 
-/* Info tamu di bawah amplop */
+/* Info tamu di bawah amplop — plakat dengan garis tipis atas-bawah */
+.cn-guest {
+  position: relative;
+  width: min(300px, 100%);
+  padding: 16px 12px 18px;
+  margin-bottom: 26px;
+}
+
+.cn-guest::before,
+.cn-guest::after {
+  content: "";
+  position: absolute;
+  left: 18%;
+  right: 18%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(201, 169, 110, 0.55), transparent);
+}
+
+.cn-guest::before { top: 0; }
+.cn-guest::after  { bottom: 0; }
+
 .cn-to-label {
   margin: 0 0 6px;
-  font-size: 11px;
-  letter-spacing: 0.22em;
+  font-size: 10px;
+  letter-spacing: 0.3em;
+  padding-left: 0.3em;
   text-transform: uppercase;
   color: var(--text-muted);
 }
 
 .cn-guest-name {
-  margin: 0 0 26px;
+  margin: 0;
   font-family: var(--font-display);
   font-style: italic;
   font-weight: 400;
-  font-size: clamp(24px, 6.5vw, 32px);
+  font-size: clamp(24px, 6.5vw, 30px);
   line-height: 1.25;
   color: var(--text);
   max-width: 100%;
@@ -238,11 +450,58 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 10px;
+  gap: 6px;
 }
 
 .cn-open-btn {
-  min-width: 210px;
+  position: relative;
+  min-width: 220px;
+  overflow: hidden;
+  background: linear-gradient(135deg, rgba(201, 169, 110, 0.12), rgba(201, 169, 110, 0.02));
+}
+
+/* Kilau tipis melintas pada tombol buka */
+.cn-open-btn::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(110deg, transparent 30%, rgba(243, 237, 226, 0.22) 50%, transparent 70%);
+  transform: translateX(-120%);
+  animation: cn-btn-sheen 4.5s var(--ease) 2.2s infinite;
+  pointer-events: none;
+}
+
+@keyframes cn-btn-sheen {
+  0%       { transform: translateX(-120%); }
+  35%, 100% { transform: translateX(120%); }
+}
+
+/* Layar pendek: rapatkan agar semua muat tanpa scroll */
+@media (max-height: 720px) {
+  .cn-cover-head { margin-bottom: 20px; }
+  .cn-cover-names { font-size: clamp(36px, 10.5vw, 48px); }
+  .cn-envelope-stage { height: 168px; width: min(250px, 76vw); margin-bottom: 18px; }
+  .cn-guest { padding: 12px 12px 14px; margin-bottom: 16px; }
+}
+
+/* Saat dibuka: kepala sampul & info tamu memberi ruang untuk kartu yang naik */
+.lk-cover.cn-sealing .cn-cover-head,
+.lk-cover.cn-sealing .cn-guest,
+.lk-cover.cn-sealing .cn-cover-actions {
+  animation: cn-cover-out 380ms var(--ease) forwards;
+}
+
+@keyframes cn-cover-out {
+  from { opacity: 1; transform: none; }
+  to   { opacity: 0; transform: translateY(-6px); }
+}
+
+/* Saat dibuka: dekor ikut memudar lebih cepat */
+.lk-cover.cn-sealing .cn-cover-dust,
+.lk-cover.cn-sealing .cn-seal::after,
+.lk-cover.cn-sealing .cn-open-btn::after {
+  animation: none;
+  opacity: 0;
 }
 
 /* ---------- Monogram Emas Besar — Satu-satunya Efek Kilau (Shimmer 1x) ---------- */
@@ -413,5 +672,20 @@
   .lk-reveal.is-visible .cn-monogram::after {
     animation: none !important;
     opacity: 0 !important;
+  }
+
+  .cn-cover-inner > *,
+  .cn-cover-glow {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none;
+  }
+
+  .cn-cover-glow { transform: translate(-50%, -50%); }
+
+  .cn-cover-dust,
+  .cn-seal::after,
+  .cn-open-btn::after {
+    display: none !important;
   }
 }
