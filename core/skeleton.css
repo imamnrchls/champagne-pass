@@ -510,6 +510,10 @@ a {
   color: var(--text, #f3ede2);
 }
 
+.lk-event-venue-icon {
+  display: none;
+}
+
 .lk-event-time {
   margin: 0;
   font-size: 13.5px;

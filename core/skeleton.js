@@ -89,6 +89,23 @@
     });
   }
 
+  // Tanggal terstruktur: tema bisa menata hari / tanggal / bulan-tahun terpisah
+  function buildEventDate(iso) {
+    const p = el("p", "lk-event-date");
+    if (!iso) return p;
+    const d = new Date(iso);
+    if (Number.isNaN(d.getTime())) return p;
+    const part = (opts) => d.toLocaleDateString("id-ID", Object.assign({ timeZone: "Asia/Jakarta" }, opts));
+    p.append(
+      el("span", "lk-event-date-wd", part({ weekday: "long" })),
+      el("span", "lk-event-date-sep", ", "),
+      el("span", "lk-event-date-day", part({ day: "numeric" })),
+      el("span", "lk-event-date-sep", " "),
+      el("span", "lk-event-date-my", part({ month: "long", year: "numeric" }))
+    );
+    return p;
+  }
+
   function fmtTimeRangeWIB(startIso, endIso) {
     if (!startIso) return "";
     const fmt = (iso) =>
@@ -625,12 +642,18 @@
         card.append(
           iconWrap,
           el("h3", "lk-event-title", ev.label || "Acara"),
-          el("p", "lk-event-date", fmtDateID(ev.mulai)),
+          buildEventDate(ev.mulai),
           el("p", "lk-event-time", fmtTimeRangeWIB(ev.mulai, ev.selesai)),
           el("hr", "lk-event-rule")
         );
 
-        if (ev.venue) card.append(el("p", "lk-event-venue", ev.venue));
+        if (ev.venue) {
+          const venue = el("p", "lk-event-venue");
+          const venueIcon = ICONS.pin();
+          venueIcon.classList.add("lk-event-venue-icon");
+          venue.append(venueIcon, el("span", null, ev.venue));
+          card.append(venue);
+        }
         if (ev.alamat) card.append(el("p", "lk-event-address", ev.alamat));
 
         const actions = el("div", "lk-event-actions");
