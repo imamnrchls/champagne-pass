@@ -1,21 +1,33 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 800" width="600" height="800">
   <defs>
     <linearGradient id="g2" x1="0" y1="1" x2="1" y2="0">
-      <stop offset="0%" stop-color="#17120D"/>
-      <stop offset="50%" stop-color="#2D2215"/>
-      <stop offset="100%" stop-color="#121413"/>
+      <stop offset="0%" stop-color="#1E1710"/>
+      <stop offset="50%" stop-color="#382A18"/>
+      <stop offset="100%" stop-color="#141816"/>
     </linearGradient>
-    <radialGradient id="s2" cx="50%" cy="46%" r="44%">
-      <stop offset="0%" stop-color="#F1D59B" stop-opacity="0.38"/>
+    <radialGradient id="s2" cx="50%" cy="46%" r="48%">
+      <stop offset="0%" stop-color="#F5DC9F" stop-opacity="0.48"/>
+      <stop offset="55%" stop-color="#C9A96E" stop-opacity="0.14"/>
       <stop offset="100%" stop-color="#C9A96E" stop-opacity="0"/>
     </radialGradient>
   </defs>
   <rect width="600" height="800" fill="url(#g2)"/>
   <rect width="600" height="800" fill="url(#s2)"/>
-  <rect x="36" y="36" width="528" height="728" fill="none" stroke="#C9A96E" stroke-width="1.5" opacity="0.45"/>
-  <circle cx="255" cy="390" r="92" fill="none" stroke="#E2C17C" stroke-width="3.2" opacity="0.85"/>
-  <circle cx="345" cy="390" r="92" fill="none" stroke="#F3EDE2" stroke-width="2.2" opacity="0.72"/>
-  <polygon points="255,274 274,296 255,318 236,296" fill="#E8C988" opacity="0.9"/>
-  <line x1="160" y1="560" x2="440" y2="560" stroke="#C9A96E" stroke-width="1" opacity="0.5"/>
-  <text x="300" y="640" text-anchor="middle" font-family="Georgia, serif" font-style="italic" font-size="24" letter-spacing="4" fill="#F3EDE2" opacity="0.85">II · JANJI</text>
+  <rect x="28" y="28" width="544" height="744" fill="none" stroke="#DFC082" stroke-width="1.6" opacity="0.62"/>
+  <rect x="44" y="44" width="512" height="712" fill="none" stroke="#C9A96E" stroke-width="0.9" opacity="0.34"/>
+  <path d="M28 84 V28 H84 M516 28 H572 V84 M28 716 V772 H84 M516 772 H572 V716" fill="none" stroke="#F0D497" stroke-width="2.2" opacity="0.85"/>
+  <g stroke="#E8C988" stroke-width="0.9" opacity="0.32">
+    <line x1="300" y1="395" x2="300" y2="165"/>
+    <line x1="300" y1="395" x2="160" y2="225"/>
+    <line x1="300" y1="395" x2="440" y2="225"/>
+    <line x1="300" y1="395" x2="120" y2="345"/>
+    <line x1="300" y1="395" x2="480" y2="345"/>
+  </g>
+  <circle cx="250" cy="400" r="96" fill="none" stroke="#ECCD8A" stroke-width="3.6" opacity="0.92"/>
+  <circle cx="250" cy="400" r="82" fill="none" stroke="#C9A96E" stroke-width="1" opacity="0.45"/>
+  <circle cx="350" cy="400" r="96" fill="none" stroke="#F3EDE2" stroke-width="2.6" opacity="0.82"/>
+  <circle cx="350" cy="400" r="82" fill="none" stroke="#F3EDE2" stroke-width="0.9" opacity="0.35"/>
+  <polygon points="250,274 274,302 250,330 226,302" fill="#F2D79A" opacity="0.94"/>
+  <polygon points="250,286 263,302 250,318 237,302" fill="none" stroke="#1E1710" stroke-width="1.2" opacity="0.45"/>
+  <path d="M300 226 L304 238 L316 242 L304 246 L300 258 L296 246 L284 242 L296 238 Z" fill="#F3EDE2" opacity="0.78"/>
 </svg>

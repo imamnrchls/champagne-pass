@@ -1,19 +1,28 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 800" width="600" height="800">
   <defs>
     <linearGradient id="g3" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#112E28"/>
-      <stop offset="60%" stop-color="#0E1A18"/>
-      <stop offset="100%" stop-color="#1A150E"/>
+      <stop offset="0%" stop-color="#173A32"/>
+      <stop offset="56%" stop-color="#12221F"/>
+      <stop offset="100%" stop-color="#241C11"/>
     </linearGradient>
+    <radialGradient id="s3" cx="50%" cy="48%" r="48%">
+      <stop offset="0%" stop-color="#ECCD8A" stop-opacity="0.34"/>
+      <stop offset="100%" stop-color="#C9A96E" stop-opacity="0"/>
+    </radialGradient>
   </defs>
   <rect width="600" height="800" fill="url(#g3)"/>
-  <rect x="36" y="36" width="528" height="728" fill="none" stroke="#C9A96E" stroke-width="1.5" opacity="0.45"/>
-  <g stroke="#C9A96E" fill="none" opacity="0.55">
-    <polygon points="300,130 470,380 300,560 130,380" stroke-width="1.5"/>
-    <polygon points="300,175 430,380 300,515 170,380" stroke-width="1"/>
-    <line x1="300" y1="90" x2="300" y2="585" stroke-width="1"/>
-    <line x1="96" y1="380" x2="504" y2="380" stroke-width="1"/>
+  <rect width="600" height="800" fill="url(#s3)"/>
+  <rect x="28" y="28" width="544" height="744" fill="none" stroke="#DFC082" stroke-width="1.6" opacity="0.62"/>
+  <rect x="44" y="44" width="512" height="712" fill="none" stroke="#C9A96E" stroke-width="0.9" opacity="0.34"/>
+  <path d="M28 84 V28 H84 M516 28 H572 V84 M28 716 V772 H84 M516 772 H572 V716" fill="none" stroke="#F0D497" stroke-width="2.2" opacity="0.85"/>
+  <g stroke="#E5C584" fill="none" opacity="0.78">
+    <polygon points="300,150 484,386 300,602 116,386" stroke-width="1.8"/>
+    <polygon points="300,194 444,386 300,558 156,386" stroke-width="1.2" opacity="0.7"/>
+    <polygon points="300,242 402,386 300,514 198,386" stroke-width="0.9" opacity="0.5"/>
+    <line x1="300" y1="112" x2="300" y2="636" stroke-width="1.1"/>
+    <line x1="88" y1="386" x2="512" y2="386" stroke-width="1.1"/>
+    <path d="M170 270 L430 502 M430 270 L170 502" stroke-width="0.75" opacity="0.38"/>
   </g>
-  <circle cx="300" cy="380" r="22" fill="#C9A96E" opacity="0.35"/>
-  <text x="300" y="640" text-anchor="middle" font-family="Georgia, serif" font-style="italic" font-size="24" letter-spacing="4" fill="#F3EDE2" opacity="0.85">III · DECO</text>
+  <circle cx="300" cy="386" r="34" fill="#E8C988" fill-opacity="0.22" stroke="#F2D79A" stroke-width="1.6"/>
+  <polygon points="300,366 320,386 300,406 280,386" fill="#F2D79A" opacity="0.88"/>
 </svg>
