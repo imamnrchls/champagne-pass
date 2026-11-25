@@ -812,6 +812,11 @@
         img.decoding = "async";
 
         btn.append(img);
+        if (item.caption) {
+          const cap = el("span", "lk-gallery-cap", item.caption);
+          cap.setAttribute("aria-hidden", "true");
+          btn.append(cap);
+        }
         btn.addEventListener("click", () => openLightbox(gallery, idx, btn));
         grid.append(btn);
       });

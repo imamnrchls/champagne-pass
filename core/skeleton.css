@@ -748,6 +748,11 @@ a {
   transition: filter 400ms ease, transform 500ms var(--ease, ease);
 }
 
+/* Keterangan foto: tersembunyi kecuali tema menampilkannya */
+.lk-gallery-cap {
+  display: none;
+}
+
 .lk-gallery-item:hover img,
 .lk-gallery-item:focus-visible img {
   transform: scale(1.04);
