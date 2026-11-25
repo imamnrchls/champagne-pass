@@ -78,7 +78,9 @@
       rsvp_title: "Konfirmasi Kehadiran",
       wishes_title: "Doa & Ucapan",
       gift_title: "Tanda Kasih",
-      closing: "Merupakan suatu kehormatan apabila Bapak/Ibu/Saudara/i berkenan hadir."
+      closing: "Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir dan memberikan doa restu.",
+      closing_title: "Terima Kasih",
+      closing_signoff: "Kami yang berbahagia,"
     },
 
     section_order: ["pembuka", "acara", "cerita_galeri", "rsvp", "amplop"],
@@ -284,13 +286,21 @@
       },
 
       closingEmblem(initials) {
+        const safe = String(initials).replace(/[<>&"']/g, "");
         return svgEl(
-          "0 0 100 68",
-          '<circle cx="40" cy="34" r="20" fill="none" stroke="currentColor" stroke-width="1" opacity="0.65"/>' +
-          '<circle cx="60" cy="34" r="20" fill="none" stroke="currentColor" stroke-width="1" opacity="0.65"/>' +
-          `<text x="50" y="39" text-anchor="middle" font-family="Cormorant Garamond, Georgia, serif" font-size="16" letter-spacing="2" fill="currentColor">${String(initials).replace(/[<>&"']/g, "")}</text>`,
-          100,
-          68
+          "0 0 160 104",
+          '<g stroke="currentColor" stroke-width="0.6" opacity="0.3"><line x1="111.9" y1="48.4" x2="134.5" y2="40.2"/><line x1="108.2" y1="41.0" x2="128.1" y2="27.6"/><line x1="102.8" y1="34.7" x2="118.8" y2="16.9"/><line x1="96.0" y1="30.0" x2="107.2" y2="8.8"/><line x1="88.2" y1="27.0" x2="94.0" y2="3.7"/><line x1="80.0" y1="26.0" x2="80.0" y2="2.0"/><line x1="71.8" y1="27.0" x2="66.0" y2="3.7"/><line x1="64.0" y1="30.0" x2="52.8" y2="8.8"/><line x1="57.2" y1="34.7" x2="41.2" y2="16.9"/><line x1="51.8" y1="41.0" x2="31.9" y2="27.6"/><line x1="48.1" y1="48.4" x2="25.5" y2="40.2"/></g>' +
+          '<path d="M14 60 H48 M112 60 H146" stroke="currentColor" stroke-width="0.8" opacity="0.6"/>' +
+          '<path d="M10 60 l4 -4 4 4 -4 4z M142 60 l4 -4 4 4 -4 4z" fill="currentColor" opacity="0.8"/>' +
+          '<mask id="cn-emblem-mask"><rect width="160" height="104" fill="#fff"/><rect x="62" y="49" width="36" height="22" rx="3" fill="#000"/></mask>' +
+          '<g mask="url(#cn-emblem-mask)">' +
+          '<circle cx="67" cy="60" r="24" fill="none" stroke="currentColor" stroke-width="1"/>' +
+          '<circle cx="93" cy="60" r="24" fill="none" stroke="currentColor" stroke-width="1"/>' +
+          '</g>' +
+          '<path d="M80 30 l4 4 -4 4 -4 -4z" fill="currentColor"/>' +
+          `<text x="80" y="66" text-anchor="middle" font-family="Cormorant Garamond, Georgia, serif" font-size="17" font-weight="500" letter-spacing="2" fill="currentColor">${safe}</text>`,
+          160,
+          104
         );
       }
     }

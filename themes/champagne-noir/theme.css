@@ -1589,21 +1589,263 @@
   border-color: rgba(201, 169, 110, 0.3);
 }
 
-/* ---------- Amplop Digital: Kartu Hitam-Emas Minimalis ---------- */
-[data-theme="champagne-noir"] .lk-bank-card {
-  background: linear-gradient(155deg, rgba(201, 169, 110, 0.07) 0%, var(--surface) 45%, var(--bg) 100%);
-  border-color: rgba(201, 169, 110, 0.45);
+/* ---------- Amplop Digital: kartu hitam-emas bergaya kartu premium ---------- */
+[data-theme="champagne-noir"] .lk-gift-cards {
+  gap: 18px;
+  max-width: 400px;
+  margin-top: 30px;
 }
 
-[data-theme="champagne-noir"] .lk-bank-card::before {
+[data-theme="champagne-noir"] .lk-bank-card {
+  overflow: hidden;
+  gap: 0;
+  padding: 22px 22px 18px;
+  background:
+    linear-gradient(115deg, transparent 38%, rgba(243, 237, 226, 0.05) 48%, transparent 58%),
+    radial-gradient(ellipse 120% 90% at 100% 0%, rgba(201, 169, 110, 0.16), transparent 55%),
+    linear-gradient(155deg, #1d1c19 0%, #121212 55%, #0b0b0b 100%);
+  border-color: rgba(201, 169, 110, 0.45);
+  border-radius: 10px;
+  box-shadow: 0 26px 50px -24px rgba(0, 0, 0, 0.95), inset 0 1px 0 rgba(243, 237, 226, 0.06);
+}
+
+[data-theme="champagne-noir"] .lk-bank-card:not(.lk-address-card) {
+  aspect-ratio: 1.586;
+  justify-content: space-between;
+}
+
+/* Kipas garis Art Deco di sudut kanan bawah */
+[data-theme="champagne-noir"] .lk-bank-card:not(.lk-address-card)::before {
   content: "";
   position: absolute;
-  top: 0;
+  right: -60px;
+  bottom: -60px;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: repeating-radial-gradient(circle, transparent 0 13px, rgba(201, 169, 110, 0.12) 13px 14px);
+  opacity: 1;
+  pointer-events: none;
+}
+
+[data-theme="champagne-noir"] .lk-bank-top,
+[data-theme="champagne-noir"] .lk-bank-num,
+[data-theme="champagne-noir"] .lk-bank-bottom {
+  position: relative;
+}
+
+[data-theme="champagne-noir"] .lk-bank-chip {
+  width: 40px;
+  height: 30px;
+  border: 0;
+  border-radius: 6px;
+  opacity: 1;
+  background: linear-gradient(135deg, #e6cd97, #c9a96e 50%, #9c7c45);
+  box-shadow: inset 0 0 0 1px rgba(22, 18, 11, 0.25);
+}
+
+[data-theme="champagne-noir"] .lk-bank-chip::before {
+  inset: 9px 0;
+  border-color: rgba(22, 18, 11, 0.35);
+}
+
+[data-theme="champagne-noir"] .lk-bank-chip::after {
+  content: "";
+  position: absolute;
+  inset: 0 14px;
+  border-left: 1px solid rgba(22, 18, 11, 0.35);
+  border-right: 1px solid rgba(22, 18, 11, 0.35);
+}
+
+[data-theme="champagne-noir"] .lk-bank-name {
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+}
+
+[data-theme="champagne-noir"] .lk-bank-num {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(24px, 7vw, 30px);
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  font-variant-numeric: lining-nums tabular-nums;
+  white-space: nowrap;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.6);
+}
+
+[data-theme="champagne-noir"] .lk-bank-bottom {
+  margin-top: 0;
+  align-items: flex-end;
+}
+
+[data-theme="champagne-noir"] .lk-bank-holder {
+  font-size: 10.5px;
+  letter-spacing: 0.16em;
+  line-height: 1.5;
+}
+
+[data-theme="champagne-noir"] .lk-copy-btn {
+  min-height: 34px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  border-color: rgba(201, 169, 110, 0.6);
+  background: rgba(14, 14, 14, 0.6);
+  font-size: 10px;
+}
+
+/* Kartu alamat kado: beri ruang medali, jangan menimpa judul */
+[data-theme="champagne-noir"] .lk-address-card {
+  margin-top: 34px;
+  padding: 46px 24px 26px;
+  gap: 12px;
+  overflow: visible;
+  border-radius: var(--radius);
+  background:
+    radial-gradient(ellipse 90% 40% at 50% 0%, rgba(201, 169, 110, 0.09), transparent 70%),
+    var(--surface);
+}
+
+[data-theme="champagne-noir"] .lk-address-card::before {
+  content: "";
+  position: absolute;
+  inset: 6px;
+  border: 1px solid rgba(201, 169, 110, 0.14);
+  pointer-events: none;
+}
+
+[data-theme="champagne-noir"] .lk-address-card .lk-address-title {
+  font-size: 26px;
+  font-weight: 500;
+}
+
+[data-theme="champagne-noir"] .lk-address-card .lk-address-text {
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--text-muted);
+  text-wrap: balance;
+}
+
+/* ---------- Penutup: panel lengkung sebagai bookend sampul ---------- */
+[data-theme="champagne-noir"] .lk-closing {
+  position: relative;
+  max-width: 380px;
+  margin: 0 auto;
+  padding: 0;
+}
+
+[data-theme="champagne-noir"] .lk-closing > .lk-divider {
+  margin-bottom: 36px;
+}
+
+[data-theme="champagne-noir"] .lk-closing-title,
+[data-theme="champagne-noir"] .lk-closing-text,
+[data-theme="champagne-noir"] .lk-closing-signoff,
+[data-theme="champagne-noir"] .lk-closing-emblem,
+[data-theme="champagne-noir"] .lk-closing-names,
+[data-theme="champagne-noir"] .lk-closing-date {
+  position: relative;
+}
+
+/* Bingkai lengkung di belakang isi penutup */
+[data-theme="champagne-noir"] .lk-closing::before {
+  content: "";
+  position: absolute;
   left: 0;
   right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, var(--gold), transparent);
-  opacity: 0.7;
+  top: 64px;
+  bottom: -28px;
+  border: 1px solid rgba(201, 169, 110, 0.32);
+  border-bottom: 0;
+  border-radius: 999px 999px 0 0;
+  background:
+    radial-gradient(ellipse 70% 45% at 50% 30%, rgba(201, 169, 110, 0.1), transparent 70%),
+    linear-gradient(180deg, rgba(23, 23, 23, 0.9), rgba(14, 14, 14, 0));
+  pointer-events: none;
+}
+
+[data-theme="champagne-noir"] .lk-closing::after {
+  content: "";
+  position: absolute;
+  left: 8px;
+  right: 8px;
+  top: 72px;
+  bottom: -28px;
+  border: 1px solid rgba(201, 169, 110, 0.12);
+  border-bottom: 0;
+  border-radius: 999px 999px 0 0;
+  pointer-events: none;
+}
+
+[data-theme="champagne-noir"] .lk-closing-title {
+  margin: 0 0 14px;
+  padding-top: 92px;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 400;
+  font-size: 40px;
+  line-height: 1;
+  color: var(--gold);
+}
+
+[data-theme="champagne-noir"] .lk-closing-text {
+  max-width: 30ch;
+  margin-bottom: 26px;
+  padding-inline: 20px;
+  font-size: 13.5px;
+  line-height: 1.8;
+  text-wrap: balance;
+}
+
+[data-theme="champagne-noir"] .lk-closing-signoff {
+  margin: 0 0 8px;
+  font-size: 10px;
+  letter-spacing: 0.32em;
+  padding-left: 0.32em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+[data-theme="champagne-noir"] .lk-closing-emblem {
+  margin-bottom: 4px;
+}
+
+[data-theme="champagne-noir"] .lk-closing-emblem svg {
+  width: 160px;
+  height: 104px;
+}
+
+[data-theme="champagne-noir"] .lk-closing-names {
+  margin-bottom: 10px;
+  font-size: clamp(40px, 11vw, 52px);
+  font-weight: 400;
+  line-height: 1.05;
+  color: var(--text);
+}
+
+[data-theme="champagne-noir"] .lk-closing-date {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding-bottom: 8px;
+  font-size: 10px;
+  letter-spacing: 0.28em;
+}
+
+[data-theme="champagne-noir"] .lk-closing-date::before,
+[data-theme="champagne-noir"] .lk-closing-date::after {
+  content: "";
+  width: 24px;
+  height: 1px;
+  background: var(--line);
+}
+
+[data-theme="champagne-noir"] .lk-footer {
+  position: relative;
+  margin-top: 28px;
+  border-top-color: rgba(201, 169, 110, 0.25);
+  font-size: 10.5px;
+  letter-spacing: 0.18em;
 }
 
 /* ---------- Reduced Motion ---------- */

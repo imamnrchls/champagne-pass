@@ -1317,7 +1317,10 @@
       closing.append(divWrap);
     }
 
+    // Judul & salam penutup opsional (didefinisikan oleh tema lewat labels)
+    if (labels.closing_title) closing.append(el("h2", "lk-closing-title", labels.closing_title));
     closing.append(el("p", "lk-closing-text", labels.closing));
+    if (labels.closing_signoff) closing.append(el("p", "lk-closing-signoff", labels.closing_signoff));
 
     const initials = data.inisial ||
       `${(data.mempelai.pria.nama_panggilan || "P")[0]}${(data.mempelai.wanita.nama_panggilan || "W")[0]}`.toUpperCase();
