@@ -215,7 +215,8 @@
       gift_title: "Tanda Kasih",
       closing: "Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir dan memberikan doa restu.",
       closing_title: "Terima Kasih",
-      closing_signoff: "Kami yang berbahagia,"
+      closing_signoff: "Kami yang berbahagia,",
+      credit_line: "Dirancang dengan anggun oleh"
     },
 
     section_order: ["pembuka", "acara", "cerita_galeri", "rsvp", "amplop"],
