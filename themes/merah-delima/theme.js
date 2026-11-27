@@ -31,7 +31,8 @@
       rsvp_title: "Konfirmasi & Ucapan",
       wishes_title: "Ucapan Tamu",
       gift_title: "Wedding Gift",
-      closing: "Merupakan suatu kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir dan memberikan doa restu."
+      closing: "Merupakan suatu kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir dan memberikan doa restu.",
+      credit_line: "Dirangkai dengan cinta oleh"
     },
 
     section_order: ["pembuka", "acara", "cerita_galeri", "rsvp", "amplop"],
